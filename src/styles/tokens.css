@@ -1,0 +1,106 @@
+:root {
+  /* Color / Brand */
+  --color-brand-primary: #ff3482;
+  --color-brand-primary-hover: #e6206e;
+  --color-brand-primary-light: #fff0f5;
+  --color-brand-primary-muted: #ffb5d2;
+
+  /* Color / Background */
+  --color-bg-default: #ffffff;
+  --color-bg-subtle: #f8f9fa;
+  --color-bg-muted: #f1f3f5;
+
+  /* Color / Surface */
+  --color-surface-default: #ffffff;
+  --color-surface-raised: #ffffff;
+  --color-surface-overlay: #ffffff;
+
+  /* Color / Text */
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #4a4a68;
+  --color-text-tertiary: #8e8ea0;
+  --color-text-on-brand: #ffffff;
+  --color-text-disabled: #b8b8c8;
+
+  /* Color / Border */
+  --color-border-default: #e2e4e9;
+  --color-border-subtle: #f1f3f5;
+  --color-border-strong: #c8cad0;
+
+  /* Color / Success */
+  --color-success-default: #12b76a;
+  --color-success-light: #ecfdf3;
+  --color-success-dark: #027a48;
+
+  /* Color / Warning */
+  --color-warning-default: #f79009;
+  --color-warning-light: #fffaeb;
+  --color-warning-dark: #b54708;
+
+  /* Color / Danger */
+  --color-danger-default: #f04438;
+  --color-danger-light: #fef3f2;
+  --color-danger-dark: #b42318;
+
+  /* Typography / Font families */
+  --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+
+  /* Typography / Headings */
+  --font-size-h1: 32px;
+  --line-height-h1: 40px;
+  --letter-spacing-h1: -1.5px;
+  --font-weight-h1: 700;
+
+  --font-size-h2: 24px;
+  --line-height-h2: 32px;
+  --letter-spacing-h2: -0.75px;
+  --font-weight-h2: 700;
+
+  --font-size-h3: 20px;
+  --line-height-h3: 28px;
+  --letter-spacing-h3: -0.5px;
+  --font-weight-h3: 600;
+
+  --font-size-h4: 18px;
+  --line-height-h4: 24px;
+  --letter-spacing-h4: -0.25px;
+  --font-weight-h4: 600;
+
+  /* Typography / Body */
+  --font-size-body-large: 16px;
+  --line-height-body-large: 24px;
+  --font-weight-body-large: 400;
+  --font-weight-body-large-bold: 600;
+
+  --font-size-body-default: 14px;
+  --line-height-body-default: 20px;
+  --font-weight-body-default: 400;
+  --font-weight-body-default-bold: 500;
+
+  --font-size-body-small: 13px;
+  --line-height-body-small: 18px;
+  --font-weight-body-small: 400;
+
+  /* Typography / Labels */
+  --font-size-label-large: 14px;
+  --line-height-label-large: 20px;
+  --letter-spacing-label-large: 0;
+
+  --font-size-label-default: 12px;
+  --line-height-label-default: 16px;
+  --letter-spacing-label-default: 0.2px;
+
+  --font-size-label-small: 11px;
+  --line-height-label-small: 14px;
+  --letter-spacing-label-small: 0.3px;
+  --font-weight-label: 500;
+
+  /* Typography / Captions */
+  --font-size-caption-default: 12px;
+  --line-height-caption-default: 16px;
+
+  --font-size-caption-small: 11px;
+  --line-height-caption-small: 14px;
+  --font-weight-caption: 400;
+}
