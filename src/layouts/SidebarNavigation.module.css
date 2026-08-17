@@ -4,7 +4,10 @@
 
 .sidebar {
   width: 314px;
-  height: 100%;
+  /* Sin height fijo: .shell solo define min-height (no height), así que un 100% aquí
+     no puede resolver y el fondo oscuro se queda corto. align-items: stretch (default
+     de .shell, un flex row) ya estira este hijo a la altura real del contenedor. */
+  align-self: stretch;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;

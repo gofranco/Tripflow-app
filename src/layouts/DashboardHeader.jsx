@@ -52,10 +52,10 @@ function DashboardHeader({ showMenuButton = false, onMenuClick }) {
           size="large"
         />
 
-        <Button variant="secondary" icon={<img src={addDarkIcon} alt="" />}>
+        <Button variant="secondary" icon={<img src={addDarkIcon} alt="" />} className={styles.actionButton}>
           Nuevo viaje
         </Button>
-        <Button variant="primary" icon={<img src={addWhiteIcon} alt="" />}>
+        <Button variant="primary" icon={<img src={addWhiteIcon} alt="" />} className={styles.actionButton}>
           Agregar gasto
         </Button>
       </div>
