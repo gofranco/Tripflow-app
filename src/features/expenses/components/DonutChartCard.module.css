@@ -1,0 +1,114 @@
+/* radius/padding/tamaño del donut son provisionales (ver ui/Button/Button.module.css). */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 32px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border-default);
+  background: var(--color-surface-default);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-h3);
+  font-weight: var(--font-weight-h3);
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-caption-default);
+  color: var(--color-text-tertiary);
+}
+
+.body {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.donut {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.center {
+  position: absolute;
+  inset: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 50%;
+  background: var(--color-surface-default);
+}
+
+.centerValue {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-h4);
+  color: var(--color-text-primary);
+}
+
+.centerLabel {
+  font-family: var(--font-body);
+  font-size: var(--font-size-caption-default);
+  color: var(--color-text-tertiary);
+}
+
+.legend {
+  flex: 1;
+  min-width: 220px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.legendRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-default);
+  color: var(--color-text-primary);
+}
+
+.legendLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  border-radius: 999px;
+}
+
+.legendRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-secondary);
+}
+
+.legendPercent {
+  min-width: 32px;
+  text-align: right;
+  color: var(--color-text-tertiary);
+}
