@@ -1,0 +1,56 @@
+/* radius/height/padding are provisional, pending Figma confirmation (see Button.module.css). */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: var(--font-size-label-default);
+  font-weight: var(--font-weight-label);
+  letter-spacing: var(--letter-spacing-label-default);
+  color: var(--color-text-secondary);
+}
+
+.input {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border-default);
+  background: var(--color-surface-default);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-default);
+  line-height: var(--line-height-body-default);
+}
+
+.input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.input:focus-visible {
+  outline: none;
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 0 0 3px var(--color-brand-primary-light);
+}
+
+.input:disabled {
+  background: var(--color-bg-muted);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.error {
+  border-color: var(--color-danger-default);
+}
+
+.errorMessage {
+  margin: 0;
+  font-size: var(--font-size-caption-default);
+  line-height: var(--line-height-caption-default);
+  color: var(--color-danger-default);
+}
