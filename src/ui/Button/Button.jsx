@@ -2,7 +2,7 @@ import styles from './Button.module.css'
 
 const VARIANTS = ['primary', 'secondary', 'ghost']
 
-function Button({ variant = 'primary', disabled = false, className = '', children, ...rest }) {
+function Button({ variant = 'primary', icon, disabled = false, className = '', children, ...rest }) {
   const variantClass = VARIANTS.includes(variant) ? styles[variant] : styles.primary
 
   return (
@@ -12,6 +12,11 @@ function Button({ variant = 'primary', disabled = false, className = '', childre
       disabled={disabled}
       {...rest}
     >
+      {icon && (
+        <span className={styles.icon} aria-hidden="true">
+          {icon}
+        </span>
+      )}
       {children}
     </button>
   )

@@ -1,22 +1,23 @@
-/* radius/padding provisionales (ver ui/Button/Button.module.css). */
+/* Réplica de "Gastos Recientes Card": radius/xl, borde --color-border-card,
+   título H4 (18px semibold), padding px-24 pt-24 pb-20. */
 
 .card {
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 24px;
-  border-radius: 12px;
-  border: 1px solid var(--color-border-default);
+  padding: var(--spacing-24) var(--spacing-24) var(--spacing-20);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-card);
   background: var(--color-surface-default);
 }
 
 .title {
-  margin: 0;
+  margin: 0 0 var(--spacing-24);
   font-family: var(--font-heading);
-  font-size: var(--font-size-h3);
-  line-height: var(--line-height-h3);
-  font-weight: var(--font-weight-h3);
+  font-size: var(--font-size-h4);
+  line-height: var(--line-height-h4);
+  letter-spacing: var(--letter-spacing-h4);
+  font-weight: var(--font-weight-h4);
   color: var(--color-text-primary);
 }
 

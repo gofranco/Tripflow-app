@@ -1,14 +1,14 @@
-/* radius/height/padding are provisional — Figma doesn't document a spacing/radius
-   token yet and get_design_context is currently unreachable; revisit once confirmed. */
+/* Altura/relleno/radio confirmados contra los botones reales del Dashboard Header
+   ("Nuevo viaje"/"Agregar gasto": py-8 px-16, gap-12, radius/md). El borde de la
+   variante secondary usa --color-border-card (borde real de cards/inputs). */
 
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  height: 48px;
-  padding: 0 24px;
-  border-radius: 8px;
+  gap: var(--spacing-12);
+  padding: var(--spacing-8) var(--spacing-16);
+  border-radius: var(--radius-md);
   border: 1px solid transparent;
   font-family: var(--font-body);
   font-size: var(--font-size-body-default);
@@ -16,6 +16,18 @@
   line-height: var(--line-height-body-default);
   cursor: pointer;
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.icon {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+}
+
+.icon > svg,
+.icon > img {
+  width: 100%;
+  height: 100%;
 }
 
 .button:focus-visible {
@@ -40,7 +52,7 @@
 .secondary {
   background: var(--color-surface-default);
   color: var(--color-text-primary);
-  border-color: var(--color-border-default);
+  border-color: var(--color-border-card);
 }
 
 .secondary:hover:not(:disabled) {

@@ -1,30 +1,34 @@
-/* Proporción de columnas (1fr / 380px) aproxima la relación 752:391 vista en el
-   frame "Content Grid" de Figma; breakpoints provisionales (ver ui/Button/Button.module.css). */
+/* Proporción de columnas (1fr / 380px) aproxima la relación 752:391 del "Content Grid"
+   real en Figma; el gap de 24px sí está confirmado (--spacing-24). */
 
 .page {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--spacing-24);
 }
 
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 380px;
   align-items: start;
-  gap: 24px;
+  gap: var(--spacing-24);
 }
 
 .leftColumn {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--spacing-24);
 }
 
 .metricsRow {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  gap: var(--spacing-20);
+}
+
+.gastadoValue {
+  color: var(--color-danger-default);
 }
 
 @media (max-width: 1024px) {

@@ -1,4 +1,5 @@
-/* radius/height/padding are provisional, pending Figma confirmation (see Button.module.css). */
+/* Altura/radio/borde confirmados contra el "Location Selector" real del Dashboard
+   Header (44px, radius/md, --color-border-card). */
 
 .field {
   display: flex;
@@ -17,14 +18,15 @@
 
 .select {
   width: 100%;
-  height: 48px;
-  padding: 0 16px;
-  border-radius: 8px;
-  border: 1px solid var(--color-border-default);
+  height: 44px;
+  padding: 0 var(--spacing-16);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-card);
   background: var(--color-surface-default);
   color: var(--color-text-primary);
   font-family: var(--font-body);
   font-size: var(--font-size-body-default);
+  font-weight: var(--font-weight-body-default-bold);
   line-height: var(--line-height-body-default);
   appearance: auto;
 }

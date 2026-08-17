@@ -1,3 +1,5 @@
+import gastadoIllustration from '../../assets/dashboard/gastado-illustration.png'
+import presupuestoIllustration from '../../assets/dashboard/presupuesto-illustration.png'
 import { StatCard } from '../../ui'
 import { formatCOP } from '../../utils/currency'
 import DonutChartCard from '../expenses/components/DonutChartCard'
@@ -21,11 +23,16 @@ function DashboardPage() {
         <div className={styles.leftColumn}>
           <div className={styles.metricsRow}>
             <StatCard
-              visual={<span>💰</span>}
+              visual={<img src={presupuestoIllustration} alt="" />}
               label="Presupuesto Total"
               value={formatCOP(activeTrip.budgetTotal)}
             />
-            <StatCard visual={<span>💳</span>} label="Gastado" value={formatCOP(activeTrip.spent)} />
+            <StatCard
+              visual={<img src={gastadoIllustration} alt="" />}
+              label="Gastado"
+              value={formatCOP(activeTrip.spent)}
+              valueClassName={styles.gastadoValue}
+            />
           </div>
 
           <DonutChartCard categories={expenseCategories} />

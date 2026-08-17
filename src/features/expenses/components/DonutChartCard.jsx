@@ -61,7 +61,9 @@ function DonutChartCard({ categories, totalLabel = 'Gastado' }) {
               </span>
               <span className={styles.legendRight}>
                 <span>{formatCompactCOP(slice.amount)}</span>
-                <span className={styles.legendPercent}>{slice.displayPercent}%</span>
+                <span className={styles.legendPercent} style={{ color: slice.color }}>
+                  {slice.displayPercent}%
+                </span>
               </span>
             </li>
           ))}

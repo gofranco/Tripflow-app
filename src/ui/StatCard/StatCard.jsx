@@ -1,6 +1,6 @@
 import styles from './StatCard.module.css'
 
-function StatCard({ visual, label, value, className = '' }) {
+function StatCard({ visual, label, value, valueClassName = '', className = '' }) {
   return (
     <div className={`${styles.card} ${className}`.trim()}>
       {visual && (
@@ -10,7 +10,7 @@ function StatCard({ visual, label, value, className = '' }) {
       )}
       <div className={styles.info}>
         <span className={styles.label}>{label}</span>
-        <span className={styles.value}>{value}</span>
+        <span className={`${styles.value} ${valueClassName}`.trim()}>{value}</span>
       </div>
     </div>
   )

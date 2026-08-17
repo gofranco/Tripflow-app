@@ -1,57 +1,60 @@
-/* radius/padding/accent-bar width provisionales (ver ui/Button/Button.module.css).
-   Los colores de tono (success/warning/danger) sí están respaldados por los tokens
-   semánticos existentes; el mapeo de banda→tono es una decisión propia, no de Figma. */
+/* Réplica de la instancia real "Trip Budget Banner" del Dashboard final (nodo 32:20):
+   radius/xl, borde --color-border-card, barra de acento de 18px, badge de estado sólido
+   (no ui/Badge, que usa fondo claro), línea de restante alineada a la derecha. El mapeo
+   banda→tono (success/warning/danger) es una decisión propia; los 3 tonos de color sí
+   están respaldados por los tokens semánticos de Figma. */
 
 .banner {
   position: relative;
+  display: flex;
   overflow: hidden;
-  border-radius: 12px;
-  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-card);
   background: var(--color-surface-default);
 }
 
-.banner::before {
-  content: '';
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 6px;
+.accent {
+  width: 18px;
+  flex-shrink: 0;
 }
 
-.success::before {
+.success .accent {
   background: var(--color-success-default);
 }
 
-.warning::before {
+.warning .accent {
   background: var(--color-warning-default);
 }
 
-.danger::before {
+.danger .accent {
   background: var(--color-danger-default);
 }
 
 .content {
-  padding: 24px 32px 24px 40px;
+  flex: 1;
+  min-width: 0;
+  padding: var(--spacing-20) var(--spacing-32);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--spacing-12);
 }
 
 .topRow {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--spacing-12);
   flex-wrap: wrap;
 }
 
 .eyebrow {
-  margin: 0 0 4px;
-  font-family: var(--font-body);
-  font-size: var(--font-size-label-default);
-  font-weight: var(--font-weight-label);
-  letter-spacing: var(--letter-spacing-label-default);
-  color: var(--color-text-tertiary);
-  text-transform: uppercase;
+  margin: 0 0 var(--spacing-2);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  line-height: var(--line-height-h4);
+  letter-spacing: var(--letter-spacing-h4);
+  font-weight: var(--font-weight-h4);
+  color: var(--color-text-secondary);
 }
 
 .tripName {
@@ -64,23 +67,45 @@
   color: var(--color-text-primary);
 }
 
+.statusBadge {
+  flex-shrink: 0;
+  padding: var(--spacing-8) var(--spacing-16);
+  border-radius: var(--radius-xl);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-default);
+  font-weight: var(--font-weight-body-default-bold);
+  color: var(--color-text-on-brand);
+}
+
+.success .statusBadge {
+  background: var(--color-success-default);
+}
+
+.warning .statusBadge {
+  background: var(--color-warning-default);
+}
+
+.danger .statusBadge {
+  background: var(--color-danger-default);
+}
+
 .progressRow {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--spacing-8);
 }
 
 .track {
   flex: 1;
-  height: 12px;
-  border-radius: 999px;
+  height: 20px;
+  border-radius: var(--radius-lg);
   background: var(--color-bg-muted);
   overflow: hidden;
 }
 
 .fill {
   height: 100%;
-  border-radius: 999px;
+  border-radius: var(--radius-lg);
   transition: width 0.3s ease;
 }
 
@@ -97,28 +122,57 @@
 }
 
 .percent {
-  min-width: 56px;
+  min-width: 64px;
   text-align: right;
-  font-family: var(--font-body);
-  font-size: var(--font-size-body-large);
-  font-weight: var(--font-weight-body-large-bold);
-  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  line-height: var(--line-height-h4);
+  letter-spacing: var(--letter-spacing-h4);
+  font-weight: var(--font-weight-h4);
+}
+
+.success .percent {
+  color: var(--color-success-default);
+}
+
+.warning .percent {
+  color: var(--color-warning-default);
+}
+
+.danger .percent {
+  color: var(--color-danger-default);
 }
 
 .remaining {
   margin: 0;
-  font-family: var(--font-body);
-  font-size: var(--font-size-body-default);
-  color: var(--color-text-secondary);
+  text-align: right;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h4);
+  line-height: var(--line-height-h4);
+  letter-spacing: var(--letter-spacing-h4);
+  font-weight: var(--font-weight-h4);
+  color: var(--color-text-primary);
 }
 
-.remaining strong {
-  color: var(--color-text-primary);
+.remainingAmount {
+  font-weight: var(--font-weight-h4);
+}
+
+.success .remainingAmount {
+  color: var(--color-success-default);
+}
+
+.warning .remainingAmount {
+  color: var(--color-warning-default);
+}
+
+.danger .remainingAmount {
+  color: var(--color-danger-default);
 }
 
 @media (max-width: 640px) {
   .content {
-    padding: 20px 20px 20px 28px;
+    padding: var(--spacing-16) var(--spacing-20);
   }
 
   .tripName {

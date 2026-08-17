@@ -1,15 +1,13 @@
-/* padding/pill radius are provisional, pending Figma confirmation (see Button.module.css).
-   Colors map to the Success/Warning/Danger token groups defined in Figma; "neutral" is a
-   fallback for cases without a matching semantic color (not a documented Figma variant). */
+/* Radius y padding confirmados contra el "Category Badge" real de Figma
+   (radius/sm=4px, px-4 py-2, Caption/Small 11px). */
 
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 2px 10px;
-  border-radius: 999px;
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--radius-sm);
   font-family: var(--font-body);
-  font-size: var(--font-size-label-small);
-  font-weight: var(--font-weight-label);
+  font-size: var(--font-size-caption-small);
   letter-spacing: var(--letter-spacing-label-small);
   white-space: nowrap;
 }

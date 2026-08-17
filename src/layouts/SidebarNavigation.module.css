@@ -1,5 +1,6 @@
-/* Ancho fijo tomado de las dimensiones del símbolo "Sidebar Navigation" en Figma
-   (314px). Padding/radius internos son provisionales (ver ui/Button/Button.module.css). */
+/* Réplica del "Sidebar Navigation" real: fondo oscuro (--color-text-primary reutilizado
+   como color de superficie, igual que en Figma), logo, sección "GENERAL" y profile card
+   que comparte el mismo fondo oscuro. */
 
 .sidebar {
   width: 314px;
@@ -7,61 +8,85 @@
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 24px 16px;
-  background: var(--color-surface-default);
-  border-right: 1px solid var(--color-border-default);
+  background: var(--color-text-primary);
+  /* Re-temiza NavItem para el fondo oscuro del sidebar. */
+  --navitem-color: var(--color-text-disabled);
+  --navitem-hover-color: var(--color-bg-default);
+  --navitem-active-color: var(--color-brand-primary);
 }
 
 .drawerVariant {
   width: 100%;
   height: auto;
-  border-right: none;
 }
 
-.brand {
-  font-family: var(--font-heading);
-  font-size: var(--font-size-h4);
-  font-weight: var(--font-weight-h4);
-  letter-spacing: var(--letter-spacing-h4);
-  color: var(--color-brand-primary);
-  padding: 0 8px;
+.logoRow {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-24);
+}
+
+.logo {
+  height: 45px;
+  width: auto;
 }
 
 .nav {
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--spacing-8);
+  padding-top: var(--spacing-20);
+  overflow: auto;
 }
 
-.profile {
-  margin-top: auto;
+.sectionLabel {
+  margin: 0;
+  padding: 0 var(--spacing-32) var(--spacing-8);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-default);
+  font-weight: var(--font-weight-body-default-bold);
+  color: var(--color-text-disabled);
+}
+
+.profileWrapper {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px;
-  border-top: 1px solid var(--color-border-default);
-  padding-top: 16px;
+  justify-content: center;
+  padding: var(--spacing-20);
+}
+
+.profileCard {
+  width: 100%;
+  max-width: 271px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  padding: var(--spacing-8) var(--spacing-12);
+  border-radius: var(--radius-lg);
 }
 
 .avatar {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 999px;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
+  border-radius: 999px;
   background: var(--color-brand-primary-light);
   color: var(--color-brand-primary);
-  font-family: var(--font-body);
-  font-size: var(--font-size-label-default);
-  font-weight: var(--font-weight-label);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-h3);
+  letter-spacing: var(--letter-spacing-h3);
 }
 
 .profileInfo {
   display: flex;
   flex-direction: column;
+  gap: 2px;
   min-width: 0;
 }
 
@@ -69,7 +94,7 @@
   font-family: var(--font-body);
   font-size: var(--font-size-body-default);
   font-weight: var(--font-weight-body-default-bold);
-  color: var(--color-text-primary);
+  color: var(--color-bg-default);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

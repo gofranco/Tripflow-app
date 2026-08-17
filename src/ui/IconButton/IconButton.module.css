@@ -1,20 +1,14 @@
-/* radius/size values come from Figma symbol dimensions (Medium 40x40, Small 32x32);
-   radius itself is provisional, pending confirmation (see Button.module.css). */
+/* radius/md confirmado; tamaño "large" (44px) y variant "outline" replican el
+   "Delete Button" real del Dashboard Header (bg blanco, borde --color-border-card). */
 
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   border: 1px solid transparent;
-  background: transparent;
-  color: var(--color-text-secondary);
   cursor: pointer;
   transition: background-color 0.15s ease;
-}
-
-.button:hover:not(:disabled) {
-  background: var(--color-bg-subtle);
 }
 
 .button:focus-visible {
@@ -25,6 +19,30 @@
 .button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+.ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+.ghost:hover:not(:disabled) {
+  background: var(--color-bg-subtle);
+}
+
+.outline {
+  background: var(--color-surface-default);
+  border-color: var(--color-border-card);
+  color: var(--color-text-secondary);
+}
+
+.outline:hover:not(:disabled) {
+  background: var(--color-bg-subtle);
+}
+
+.large {
+  width: 44px;
+  height: 44px;
 }
 
 .medium {

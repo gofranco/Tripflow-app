@@ -1,9 +1,13 @@
+/* Réplica de "Row - ..." real dentro de Gastos Recientes: ícono 32x30 (radius/md),
+   texto Label/Default para la descripción, Caption/Small para la metadata, monto
+   siempre en color danger (así se muestra en Figma para todas las filas). */
+
 .row {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--color-border-subtle);
+  align-items: center;
+  gap: var(--spacing-12);
+  padding: var(--spacing-12) 0;
+  border-bottom: 1px solid var(--color-border-default);
 }
 
 .row:last-child {
@@ -15,11 +19,14 @@
   align-items: center;
   justify-content: center;
   width: 32px;
-  height: 32px;
+  height: 30px;
   flex-shrink: 0;
-  border-radius: 8px;
-  background: var(--color-bg-muted);
-  font-size: 16px;
+  border-radius: var(--radius-md);
+}
+
+.icon img {
+  width: 16px;
+  height: 16px;
 }
 
 .details {
@@ -27,14 +34,15 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--spacing-4);
 }
 
 .description {
   margin: 0;
   font-family: var(--font-body);
-  font-size: var(--font-size-body-default);
-  font-weight: var(--font-weight-body-default-bold);
+  font-size: var(--font-size-label-default);
+  font-weight: var(--font-weight-label);
+  letter-spacing: var(--letter-spacing-label-default);
   color: var(--color-text-primary);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -44,17 +52,19 @@
 .meta {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--spacing-4);
   font-family: var(--font-body);
-  font-size: var(--font-size-caption-default);
-  color: var(--color-text-tertiary);
+  font-size: var(--font-size-caption-small);
+  letter-spacing: var(--letter-spacing-label-small);
+  color: var(--color-text-secondary);
 }
 
 .amount {
   flex-shrink: 0;
   font-family: var(--font-body);
-  font-size: var(--font-size-body-default);
-  font-weight: var(--font-weight-body-default-bold);
-  color: var(--color-text-primary);
+  font-size: var(--font-size-label-default);
+  font-weight: var(--font-weight-label);
+  letter-spacing: var(--letter-spacing-label-default);
+  color: var(--color-danger-default);
   white-space: nowrap;
 }

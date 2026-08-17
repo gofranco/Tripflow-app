@@ -1,12 +1,13 @@
-/* radius/padding/tamaño del donut son provisionales (ver ui/Button/Button.module.css). */
+/* Réplica del "Donut Chart Card" real: radius/xl, borde --color-border-card,
+   donut de 260px, valor central en H1, leyenda con divisor entre filas. */
 
 .card {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 24px 32px;
-  border-radius: 12px;
-  border: 1px solid var(--color-border-default);
+  gap: var(--spacing-24);
+  padding: var(--spacing-24) var(--spacing-32);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-card);
   background: var(--color-surface-default);
 }
 
@@ -15,39 +16,42 @@
   font-family: var(--font-heading);
   font-size: var(--font-size-h3);
   line-height: var(--line-height-h3);
+  letter-spacing: var(--letter-spacing-h3);
   font-weight: var(--font-weight-h3);
   color: var(--color-text-primary);
 }
 
 .subtitle {
-  margin: 4px 0 0;
+  margin: var(--spacing-4) 0 0;
   font-family: var(--font-body);
-  font-size: var(--font-size-caption-default);
+  font-size: var(--font-size-label-small);
+  letter-spacing: var(--letter-spacing-label-small);
   color: var(--color-text-tertiary);
 }
 
 .body {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 40px;
   flex-wrap: wrap;
 }
 
 .donut {
   position: relative;
-  width: 220px;
-  height: 220px;
+  width: 260px;
+  height: 260px;
   flex-shrink: 0;
   border-radius: 50%;
 }
 
 .center {
   position: absolute;
-  inset: 20%;
+  inset: 22%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: var(--spacing-2);
   text-align: center;
   border-radius: 50%;
   background: var(--color-surface-default);
@@ -55,15 +59,19 @@
 
 .centerValue {
   font-family: var(--font-heading);
-  font-size: var(--font-size-h4);
-  font-weight: var(--font-weight-h4);
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-h1);
+  letter-spacing: var(--letter-spacing-h1);
+  font-weight: var(--font-weight-h1);
   color: var(--color-text-primary);
 }
 
 .centerLabel {
   font-family: var(--font-body);
-  font-size: var(--font-size-caption-default);
-  color: var(--color-text-tertiary);
+  font-size: var(--font-size-label-default);
+  letter-spacing: var(--letter-spacing-label-default);
+  font-weight: var(--font-weight-label);
+  color: var(--color-text-secondary);
 }
 
 .legend {
@@ -74,23 +82,29 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
 }
 
 .legendRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--spacing-12);
+  padding: var(--spacing-4) 0;
+  border-bottom: 1px solid var(--color-border-card);
   font-family: var(--font-body);
   font-size: var(--font-size-body-default);
+  font-weight: var(--font-weight-body-default-bold);
   color: var(--color-text-primary);
+}
+
+.legendRow:last-child {
+  border-bottom: none;
 }
 
 .legendLeft {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--spacing-8);
 }
 
 .dot {
@@ -103,12 +117,15 @@
 .legendRight {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--spacing-8);
+  font-weight: var(--font-weight-body-default);
   color: var(--color-text-secondary);
 }
 
 .legendPercent {
   min-width: 32px;
   text-align: right;
-  color: var(--color-text-tertiary);
+  font-size: var(--font-size-label-default);
+  letter-spacing: var(--letter-spacing-label-default);
+  font-weight: var(--font-weight-label);
 }

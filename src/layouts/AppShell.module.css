@@ -13,11 +13,11 @@
 
 .content {
   flex: 1;
-  padding: 32px;
+  padding: var(--spacing-32);
 }
 
 @media (max-width: 768px) {
   .content {
-    padding: 16px;
+    padding: var(--spacing-16);
   }
 }

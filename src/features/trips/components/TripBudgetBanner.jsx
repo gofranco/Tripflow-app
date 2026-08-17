@@ -1,12 +1,13 @@
-import { Badge } from '../../../ui'
 import { formatCOP } from '../../../utils/currency'
 import styles from './TripBudgetBanner.module.css'
 
-// Los 7 estados y sus umbrales replican 1:1 los definidos en Figma
-// (06 - Design System → Trip Budget Banner).
+// Los 7 estados y sus umbrales replican 1:1 los definidos en Figma (Design System →
+// Trip Budget Banner). El label de la banda 41-60% ("Vas bien!") viene de la instancia
+// real usada en el Dashboard final, que difiere del texto de la hoja de referencia
+// de estados ("Vas muy bien").
 const BUDGET_BANDS = [
   { max: 40, label: 'Todo bajo control', tone: 'success' },
-  { max: 60, label: 'Vas muy bien', tone: 'success' },
+  { max: 60, label: 'Vas bien!', tone: 'success' },
   { max: 75, label: 'Baja un cambio', tone: 'warning' },
   { max: 90, label: 'Ojo con el ritmo', tone: 'warning' },
   { max: 100, label: 'Últimos pesos', tone: 'warning' },
@@ -26,13 +27,14 @@ function TripBudgetBanner({ tripName, budgetTotal, spent }) {
 
   return (
     <section className={`${styles.banner} ${styles[band.tone]}`}>
+      <div className={styles.accent} aria-hidden="true" />
       <div className={styles.content}>
         <div className={styles.topRow}>
           <div>
             <p className={styles.eyebrow}>Viaje Activo</p>
             <h2 className={styles.tripName}>{tripName}</h2>
           </div>
-          <Badge variant={band.tone}>{band.label}</Badge>
+          <span className={styles.statusBadge}>{band.label}</span>
         </div>
 
         <div className={styles.progressRow}>
@@ -44,7 +46,7 @@ function TripBudgetBanner({ tripName, budgetTotal, spent }) {
 
         <p className={styles.remaining}>
           {isOverBudget ? 'Presupuesto excedido: ' : 'Presupuesto restante: '}
-          <strong>{formatCOP(Math.abs(remaining))}</strong>
+          <span className={styles.remainingAmount}>{formatCOP(Math.abs(remaining))}</span>
         </p>
       </div>
     </section>

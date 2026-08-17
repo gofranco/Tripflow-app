@@ -1,44 +1,59 @@
-/* padding/radius are provisional, pending Figma confirmation (see Button.module.css). */
+/* Réplica del "Dashboard Nav Item" real: barra de acento izquierda de 7px + texto
+   coloreado (sin fondo pill). Los colores usan custom properties (--navitem-*) para
+   que el contenedor (ej. un sidebar oscuro) pueda re-temizarlos sin acoplar NavItem
+   a un tema específico. */
 
 .navItem {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--spacing-12);
   width: 100%;
-  padding: 12px 16px;
+  padding: var(--spacing-8) var(--spacing-16) var(--spacing-8) var(--spacing-20);
   border: none;
-  border-radius: 8px;
   background: transparent;
-  color: var(--color-text-secondary);
+  color: var(--navitem-color, var(--color-text-secondary));
   font-family: var(--font-body);
   font-size: var(--font-size-body-default);
   font-weight: var(--font-weight-body-default);
   line-height: var(--line-height-body-default);
   text-align: left;
   cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: color 0.15s ease;
+}
+
+.navItem::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 7px;
+  background: transparent;
 }
 
 .navItem:hover {
-  background: var(--color-bg-subtle);
-  color: var(--color-text-primary);
+  color: var(--navitem-hover-color, var(--color-text-primary));
 }
 
 .navItem:focus-visible {
   outline: 2px solid var(--color-brand-primary);
-  outline-offset: 2px;
+  outline-offset: -2px;
 }
 
 .active {
-  background: var(--color-brand-primary-light);
-  color: var(--color-brand-primary);
+  color: var(--navitem-active-color, var(--color-brand-primary));
   font-weight: var(--font-weight-body-default-bold);
+}
+
+.active::before {
+  background: var(--color-brand-primary);
 }
 
 .icon {
   display: inline-flex;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
 }
 
