@@ -101,7 +101,11 @@
   gap: var(--spacing-12);
   padding: var(--spacing-8) var(--spacing-12);
   border-radius: var(--radius-lg);
-  background: var(--color-surface-default);
+  /* Valor literal pedido explícitamente (no es ninguno de los tokens de
+     background/surface existentes, que son #FFFFFF/#F8F9FA/#F1F3F5). Misma
+     clase para Desktop (Sidebar fijo) y Mobile (Drawer) — no hace falta
+     duplicar la regla. */
+  background: #f8f8f8;
 }
 
 .avatar {

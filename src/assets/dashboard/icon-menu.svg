@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="density_medium">
+<mask id="mask0_162_1911" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+<rect id="Bounding box" width="24" height="24" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_162_1911)">
+<path id="density_medium_2" d="M3 21V19H11V21H3ZM3 13V11H15V13H3ZM3 5V3H21V5H3Z" fill="#171730"/>
+</g>
+</g>
+</svg>

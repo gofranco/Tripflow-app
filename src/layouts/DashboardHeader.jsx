@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import addDarkIcon from '../assets/dashboard/icon-add-dark.svg'
 import addWhiteIcon from '../assets/dashboard/icon-add-white.svg'
 import deleteIcon from '../assets/dashboard/icon-delete.svg'
+import menuIcon from '../assets/dashboard/icon-menu.svg'
 import AddExpenseDrawer from '../features/expenses/components/AddExpenseDrawer'
 import CreateTripDrawer from '../features/trips/components/CreateTripDrawer'
 import DeleteTripDialog from '../features/trips/components/DeleteTripDialog'
@@ -56,7 +57,7 @@ function DashboardHeader({
       {showMenuButton && (
         <div className={styles.mobileTopRow}>
           <IconButton
-            icon={<span aria-hidden="true">☰</span>}
+            icon={<img src={menuIcon} alt="" />}
             label="Abrir menú"
             onClick={onMenuClick}
           />

@@ -33,17 +33,21 @@ function AppShell({ children, trips, activeTripId, onSelectTrip, onCreateTrip, o
       )}
 
       <div className={styles.main}>
-        <DashboardHeader
-          showMenuButton={!isDesktop}
-          onMenuClick={() => setSidebarOpen(true)}
-          trips={trips}
-          activeTripId={activeTripId}
-          onSelectTrip={onSelectTrip}
-          onCreateTrip={onCreateTrip}
-          onCreateExpense={onCreateExpense}
-          onDeleteTrip={onDeleteTrip}
-        />
-        <main className={styles.content}>{children}</main>
+        {/* pageContainer: mismo container horizontal para Header + contenido —
+            ver AppShell.module.css para el porqué de este nivel específico. */}
+        <div className={styles.pageContainer}>
+          <DashboardHeader
+            showMenuButton={!isDesktop}
+            onMenuClick={() => setSidebarOpen(true)}
+            trips={trips}
+            activeTripId={activeTripId}
+            onSelectTrip={onSelectTrip}
+            onCreateTrip={onCreateTrip}
+            onCreateExpense={onCreateExpense}
+            onDeleteTrip={onDeleteTrip}
+          />
+          <main className={styles.content}>{children}</main>
+        </div>
       </div>
     </div>
   )

@@ -11,6 +11,18 @@
   flex-direction: column;
 }
 
+/* Header y contenido comparten este mismo container horizontal — así quedan
+   alineados por los mismos márgenes laterales en vez de que solo el Dashboard
+   tenga un ancho máximo. flex-direction:column preserva el apilado vertical
+   (Header arriba, contenido abajo) que antes vivía directo en .main; min-height:0
+   deja que .content (flex:1 adentro) siga pudiendo crecer/scrollear como antes. */
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
 .content {
   flex: 1;
   padding: var(--spacing-32);
@@ -19,6 +31,28 @@
 @media (max-width: 768px) {
   .content {
     padding: var(--spacing-16);
+  }
+}
+
+/* Desktop únicamente — reutiliza el mismo breakpoint (1024px) que ya define
+   DESKTOP_QUERY en AppShell.jsx para el switch de Sidebar fijo/Drawer, así el
+   límite de ancho entra en vigor exactamente cuando el layout ya es "Desktop".
+   En monitores ultrawide el contenido no debe estirarse indefinidamente —
+   Figma deja márgenes laterales amplios a propósito (frame "Desktop / Dashboard":
+   Main Content de 1188px de ancho dentro de un canvas de 1920px). 1280px es el
+   ancho máximo del container (no un nuevo breakpoint): por debajo de esa
+   disponibilidad — o sea, hasta ~1594px de viewport total con el Sidebar de
+   314px — el layout sigue siendo tan fluido como antes, sin ningún cambio
+   visible en 1024–1280px, tablet, ni mobile. */
+@media (min-width: 1024px) {
+  .pageContainer {
+    /* width:100% es necesario junto a max-width: al ser un hijo flex de .main
+       (columna), un margin:auto anula el stretch por defecto — sin width:100%
+       el contenido se encoge a su ancho intrínseco en vez de llenar hasta el
+       máximo antes de centrarse. */
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
   }
 }
 
