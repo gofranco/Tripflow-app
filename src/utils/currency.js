@@ -22,8 +22,11 @@ export function formatCompactCOP(value) {
   return `$${value}`
 }
 
-// Réplica del formato usado en "Gastos recientes" ("-45.000 cop").
+// Réplica del formato usado en "Gastos recientes" ("-45.000 cop"). Un amount
+// corrupto (no numérico) en localStorage se trata como 0 — mismo criterio que el
+// saneamiento de useActiveTripSummary, para no mostrar "-NaN cop".
 export function formatExpenseAmount(value) {
-  const formatted = new Intl.NumberFormat('es-CO').format(Math.abs(value))
+  const safeValue = Number.isFinite(value) ? value : 0
+  const formatted = new Intl.NumberFormat('es-CO').format(Math.abs(safeValue))
   return `-${formatted} cop`
 }

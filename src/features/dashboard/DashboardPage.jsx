@@ -11,7 +11,7 @@ import { useActiveTripSummary } from './useActiveTripSummary'
 import styles from './DashboardPage.module.css'
 
 function DashboardPage({ activeTrip, expenses }) {
-  const { spent, percentUsed, categories, recentExpenses } = useActiveTripSummary(activeTrip, expenses)
+  const { budgetTotal, spent, percentUsed, categories, recentExpenses } = useActiveTripSummary(activeTrip, expenses)
   const { alertState, dismiss } = useBudgetAlertTrigger(activeTrip.id, percentUsed)
 
   return (
@@ -28,7 +28,7 @@ function DashboardPage({ activeTrip, expenses }) {
           tocar el estado de trips/expenses ni recargar nada de verdad. También hace
           que useBudgetAlertTrigger arranque limpio por viaje (ver ese hook). */}
       <div key={activeTrip.id} className={styles.page}>
-        <TripBudgetBanner tripName={activeTrip.name} budgetTotal={activeTrip.budgetTotal} spent={spent} />
+        <TripBudgetBanner tripName={activeTrip.name} budgetTotal={budgetTotal} spent={spent} />
 
         <div className={styles.grid}>
           <div className={styles.leftColumn}>
@@ -36,7 +36,7 @@ function DashboardPage({ activeTrip, expenses }) {
               <StatCard
                 visual={<img src={presupuestoIllustration} alt="" />}
                 label="Presupuesto Total"
-                value={formatCOP(activeTrip.budgetTotal)}
+                value={formatCOP(budgetTotal)}
               />
               <StatCard
                 visual={<img src={gastadoIllustration} alt="" />}
@@ -57,7 +57,7 @@ function DashboardPage({ activeTrip, expenses }) {
         open={alertState !== null}
         percentUsed={percentUsed}
         spent={spent}
-        budgetTotal={activeTrip.budgetTotal}
+        budgetTotal={budgetTotal}
         onClose={dismiss}
       />
     </>

@@ -3,6 +3,14 @@ import { categoryDefinitions } from '../expenses/mock/categories'
 
 const RECENT_EXPENSES_LIMIT = 6
 
+// Cualquier número que pueda venir de localStorage (budgetTotal de un trip,
+// amount de un expense) puede llegar corrupto (string no numérico, undefined,
+// NaN, Infinity) si alguien edita el storage a mano — nunca debe propagar NaN/
+// Infinity hacia los cálculos derivados. Se trata como 0 en ese caso.
+function toFiniteNumber(value) {
+  return Number.isFinite(value) ? value : 0
+}
+
 // Única fuente de verdad para los datos derivados del Dashboard: filtra los
 // gastos del viaje activo y calcula spent/disponible/%/categorías/recientes a
 // partir de ellos. Ningún componente debe volver a sumar gastos por su cuenta.
@@ -12,16 +20,17 @@ export function useActiveTripSummary(activeTrip, expenses) {
 
     // budgetTotal inválido (0, negativo, o corrupto/no numérico) nunca debe
     // propagar NaN/Infinity hacia abajo — se trata como "sin presupuesto".
-    const budgetTotal = Number.isFinite(activeTrip.budgetTotal) ? activeTrip.budgetTotal : 0
+    const budgetTotal = toFiniteNumber(activeTrip.budgetTotal)
 
-    const spent = tripExpenses.reduce((sum, expense) => sum + expense.amount, 0)
+    const spent = tripExpenses.reduce((sum, expense) => sum + toFiniteNumber(expense.amount), 0)
     const available = budgetTotal - spent
     const percentUsed = budgetTotal > 0 ? (spent / budgetTotal) * 100 : 0
 
     const totalsByCategory = new Map()
     tripExpenses.forEach((expense) => {
       const label = expense.category || 'Otros'
-      totalsByCategory.set(label, (totalsByCategory.get(label) || 0) + expense.amount)
+      const amount = toFiniteNumber(expense.amount)
+      totalsByCategory.set(label, (totalsByCategory.get(label) || 0) + amount)
     })
 
     const categories = categoryDefinitions
@@ -32,6 +41,6 @@ export function useActiveTripSummary(activeTrip, expenses) {
       .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
       .slice(0, RECENT_EXPENSES_LIMIT)
 
-    return { spent, available, percentUsed, categories, recentExpenses }
+    return { budgetTotal, spent, available, percentUsed, categories, recentExpenses }
   }, [activeTrip, expenses])
 }
