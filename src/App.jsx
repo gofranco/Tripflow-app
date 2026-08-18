@@ -1,17 +1,54 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DashboardPage from './features/dashboard/DashboardPage'
 import { initialExpenses } from './features/expenses/mock/seedExpenses'
 import { initialTrips } from './features/trips/mock/trips'
 import { AppShell } from './layouts'
+import { readJSON, writeJSON } from './utils/storage'
+
+const TRIPS_KEY = 'tripflow.trips'
+const ACTIVE_TRIP_ID_KEY = 'tripflow.activeTripId'
+const EXPENSES_KEY = 'tripflow.expenses'
+
+function loadInitialTrips() {
+  const stored = readJSON(TRIPS_KEY, null)
+  return Array.isArray(stored) && stored.length > 0 ? stored : initialTrips
+}
+
+function loadInitialActiveTripId(trips) {
+  const stored = readJSON(ACTIVE_TRIP_ID_KEY, null)
+  return trips.some((trip) => trip.id === stored) ? stored : trips[0].id
+}
+
+function loadInitialExpenses() {
+  const stored = readJSON(EXPENSES_KEY, null)
+  return Array.isArray(stored) ? stored : initialExpenses
+}
 
 function App() {
-  const [trips, setTrips] = useState(initialTrips)
-  const [activeTripId, setActiveTripId] = useState(initialTrips[0].id)
-  // En memoria, sin persistencia. `spent` ya no vive en el viaje: se deriva de estos
-  // gastos filtrados por tripId (ver features/dashboard/useActiveTripSummary).
-  const [expenses, setExpenses] = useState(initialExpenses)
+  // Semilla desde localStorage (con validación defensiva); si no hay datos
+  // guardados o están corruptos, se usan los datos demo actuales.
+  const [trips, setTrips] = useState(loadInitialTrips)
+  const [activeTripId, setActiveTripId] = useState(() => loadInitialActiveTripId(trips))
+  // `spent` no vive aquí: se deriva de estos gastos filtrados por tripId
+  // (ver features/dashboard/useActiveTripSummary).
+  const [expenses, setExpenses] = useState(loadInitialExpenses)
 
   const activeTrip = trips.find((trip) => trip.id === activeTripId) ?? trips[0]
+
+  // Persistencia: cada pieza de estado se guarda apenas cambia, sin importar
+  // qué handler la haya originado (crear viaje, registrar gasto, cambiar de
+  // viaje activo). App sigue siendo el único dueño del estado.
+  useEffect(() => {
+    writeJSON(TRIPS_KEY, trips)
+  }, [trips])
+
+  useEffect(() => {
+    writeJSON(ACTIVE_TRIP_ID_KEY, activeTripId)
+  }, [activeTripId])
+
+  useEffect(() => {
+    writeJSON(EXPENSES_KEY, expenses)
+  }, [expenses])
 
   function handleCreateTrip(tripData) {
     const newTrip = { id: `trip-${Date.now()}`, ...tripData }
