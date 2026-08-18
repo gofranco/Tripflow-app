@@ -2,8 +2,10 @@
    centrado (Body/Large Bold), headers de día en gris, celdas de 40px, día
    seleccionado con círculo sólido brand-primary, rango con banda rosa clara
    continua. El calendario es la sección "principal" del formulario: crece
-   (flex:1) para llenar el alto disponible del Drawer, empujando el resumen y
-   la sección de presupuesto/CTA hacia el fondo. */
+   (flex:1) para llenar el alto disponible del Drawer, empujando la sección de
+   presupuesto/CTA hacia el fondo. El estado de la selección ("Selecciona la
+   fecha de inicio", etc.) ya no se muestra aquí — lo renderiza el formulario
+   consumidor junto a su propia etiqueta "Cuando?". */
 
 .wrapper {
   flex: 1;
@@ -15,10 +17,13 @@
 
 /* Sin borde/radio: el calendario debe leerse como contenido del propio Drawer,
    no como una tarjeta anidada. La scrollbar se oculta visualmente mientras el
-   scroll interno se mantiene funcional (necesario para "múltiples meses"). */
+   scroll interno se mantiene funcional (necesario para "múltiples meses").
+   Sin min-height fijo: el contenedor consumidor (ver AddExpenseForm/CreateTripForm)
+   es responsable de darle una región con scroll propio; forzar un piso aquí podía
+   desbordar formularios con poco espacio fijo alrededor. */
 .scrollArea {
   flex: 1;
-  min-height: 220px;
+  min-height: 0;
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -132,16 +137,4 @@
 .daySelected {
   background: var(--color-brand-primary);
   color: var(--color-text-on-brand);
-}
-
-.summary {
-  flex-shrink: 0;
-  margin: 0;
-  padding: var(--spacing-8) var(--spacing-20);
-  border-radius: var(--radius-md);
-  background: var(--color-brand-primary-light);
-  color: var(--color-brand-primary);
-  font-family: var(--font-body);
-  font-size: var(--font-size-body-default);
-  font-weight: var(--font-weight-body-default-bold);
 }

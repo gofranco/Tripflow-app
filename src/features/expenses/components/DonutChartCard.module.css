@@ -156,3 +156,60 @@
   letter-spacing: var(--letter-spacing-label-default);
   font-weight: var(--font-weight-label);
 }
+
+/* Vista mobile (lista de barras) — oculta en Desktop; el donut (.body) se oculta
+   en su lugar por debajo del breakpoint. Réplica de "Mobile / Dashboard" en Figma. */
+.barList {
+  display: none;
+}
+
+.barRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  padding: var(--spacing-8) 0;
+}
+
+.barHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-default);
+  font-weight: var(--font-weight-body-default-bold);
+  color: var(--color-text-primary);
+}
+
+.barValue {
+  font-size: var(--font-size-label-default);
+  letter-spacing: var(--letter-spacing-label-default);
+  font-weight: var(--font-weight-label);
+  white-space: nowrap;
+}
+
+.barTrack {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-bg-muted);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+@media (max-width: 640px) {
+  .body {
+    display: none;
+  }
+
+  .barList {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}

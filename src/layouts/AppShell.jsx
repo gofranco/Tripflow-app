@@ -18,8 +18,17 @@ function AppShell({ children, trips, activeTripId, onSelectTrip, onCreateTrip, o
       {isDesktop && <SidebarNavigation />}
 
       {!isDesktop && (
-        <Drawer open={sidebarOpen} onClose={() => setSidebarOpen(false)} title="Menú" side="left">
-          <SidebarNavigation variant="drawer" onNavigate={() => setSidebarOpen(false)} />
+        <Drawer
+          open={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+          side="left"
+          contentClassName={styles.sidebarDrawerContent}
+        >
+          <SidebarNavigation
+            variant="drawer"
+            onNavigate={() => setSidebarOpen(false)}
+            onClose={() => setSidebarOpen(false)}
+          />
         </Drawer>
       )}
 

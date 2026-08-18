@@ -37,8 +37,26 @@
   }
 }
 
+/* Carrusel horizontal en mobile: cada card ocupa ~83% del ancho (deja ~17% de la
+   siguiente visible como indicador de contenido desplazable), con scroll-snap para
+   que el swipe "enganche" tarjeta por tarjeta. overflow-x vive solo en este
+   contenedor — el resto de la página no se desplaza horizontalmente. */
 @media (max-width: 560px) {
   .metricsRow {
-    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .metricsRow::-webkit-scrollbar {
+    display: none;
+  }
+
+  .metricsRow > * {
+    flex: 0 0 83%;
+    scroll-snap-align: start;
   }
 }

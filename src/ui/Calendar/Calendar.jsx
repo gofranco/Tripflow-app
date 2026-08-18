@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { toISODate } from '../../utils/date'
 import styles from './Calendar.module.css'
 
 const MONTH_NAMES = [
@@ -19,18 +20,6 @@ const DAY_HEADERS = ['L', 'Ma', 'Mi', 'J', 'V', 'S', 'D']
 
 function capitalize(word) {
   return word.charAt(0).toUpperCase() + word.slice(1)
-}
-
-function toISODate(date) {
-  const year = date.getFullYear()
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  const day = String(date.getDate()).padStart(2, '0')
-  return `${year}-${month}-${day}`
-}
-
-function formatDisplayDate(iso) {
-  const [, month, day] = iso.split('-').map(Number)
-  return `${capitalize(MONTH_NAMES[month - 1])} ${day}`
 }
 
 // Semana empieza en lunes, como en el calendario real de Figma.
@@ -80,15 +69,6 @@ function Calendar({ mode = 'range', startDate, endDate, value, onChange, monthsT
 
     onChange({ startDate, endDate: iso })
   }
-
-  const summary =
-    mode === 'range'
-      ? startDate && endDate
-        ? `${formatDisplayDate(startDate)} - ${formatDisplayDate(endDate)}`
-        : startDate
-          ? `${formatDisplayDate(startDate)} - Selecciona la fecha de regreso`
-          : 'Selecciona la fecha de inicio'
-      : null
 
   return (
     <div className={styles.wrapper}>
@@ -168,12 +148,6 @@ function Calendar({ mode = 'range', startDate, endDate, value, onChange, monthsT
           </div>
         ))}
       </div>
-
-      {summary && (
-        <p className={styles.summary} role="status">
-          {summary}
-        </p>
-      )}
     </div>
   )
 }

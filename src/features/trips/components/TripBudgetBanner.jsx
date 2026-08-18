@@ -30,7 +30,7 @@ function TripBudgetBanner({ tripName, budgetTotal, spent }) {
       <div className={styles.accent} aria-hidden="true" />
       <div className={styles.content}>
         <div className={styles.topRow}>
-          <div>
+          <div className={styles.titleGroup}>
             <p className={styles.eyebrow}>Viaje Activo</p>
             <h2 className={styles.tripName}>{tripName}</h2>
           </div>

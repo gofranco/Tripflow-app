@@ -26,6 +26,19 @@ function Drawer({
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [open, onClose])
 
+  // Bloquea el scroll del documento de fondo mientras el Drawer está abierto —
+  // sin esto, un gesto de scroll dentro del panel (ej. el calendario en mobile)
+  // puede filtrarse al body y dejar la página detrás desplazada al cerrar.
+  useEffect(() => {
+    if (!open) return
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [open])
+
   if (!open) return null
 
   return (

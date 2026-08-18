@@ -10,11 +10,42 @@
 }
 
 .sectionLabel {
-  margin: var(--spacing-8) 0 0;
+  margin: 0;
   font-family: var(--font-body);
   font-size: var(--font-size-body-default);
   font-weight: var(--font-weight-body-default-bold);
   color: var(--color-text-primary);
+}
+
+/* Desktop: label a la izquierda, estado de la selección a la derecha, misma fila. */
+.calendarHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  margin-top: var(--spacing-8);
+}
+
+.dateStatus {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-default);
+  font-weight: var(--font-weight-body-default-bold);
+  color: var(--color-brand-primary);
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  /* Mobile: el estado pasa a su propia línea debajo de la etiqueta. */
+  .calendarHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-4);
+  }
+
+  .dateStatus {
+    text-align: left;
+  }
 }
 
 /* Separa claramente la sección inferior (mensaje de fechas → presupuesto → CTA)

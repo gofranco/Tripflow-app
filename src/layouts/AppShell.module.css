@@ -21,3 +21,9 @@
     padding: var(--spacing-16);
   }
 }
+
+/* Sin padding: SidebarNavigation maneja su propio espaciado interno y su fondo
+   oscuro debe llegar hasta los bordes del Drawer, sin el padding genérico de 24px. */
+.sidebarDrawerContent {
+  --drawer-content-padding: 0px;
+}

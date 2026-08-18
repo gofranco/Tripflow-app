@@ -55,31 +55,56 @@ function DonutChartCard({ categories, totalLabel = 'Gastado' }) {
           <p className={styles.emptyText}>Registra tu primer gasto para ver la distribución.</p>
         </div>
       ) : (
-        <div className={styles.body}>
-          <div className={styles.donut} style={{ background: `conic-gradient(${gradient})` }}>
-            <div className={styles.center}>
-              <span className={styles.centerValue}>{formatCompactCOP(total)}</span>
-              <span className={styles.centerLabel}>{totalLabel}</span>
+        <>
+          {/* Desktop: donut + leyenda. Mismo `slices` que la vista mobile — el toggle
+              entre una y otra es puramente CSS (ver .body/.barList en el módulo). */}
+          <div className={styles.body}>
+            <div className={styles.donut} style={{ background: `conic-gradient(${gradient})` }}>
+              <div className={styles.center}>
+                <span className={styles.centerValue}>{formatCompactCOP(total)}</span>
+                <span className={styles.centerLabel}>{totalLabel}</span>
+              </div>
             </div>
+
+            <ul className={styles.legend}>
+              {slices.map((slice) => (
+                <li key={slice.key} className={styles.legendRow}>
+                  <span className={styles.legendLeft}>
+                    <span className={styles.dot} style={{ background: slice.color }} aria-hidden="true" />
+                    {slice.label}
+                  </span>
+                  <span className={styles.legendRight}>
+                    <span>{formatCompactCOP(slice.amount)}</span>
+                    <span className={styles.legendPercent} style={{ color: slice.color }}>
+                      {slice.displayPercent}%
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <ul className={styles.legend}>
+          {/* Mobile: lista de barras por categoría (réplica del frame Mobile/Dashboard
+              de Figma, que no usa el donut circular en pantallas chicas). */}
+          <ul className={styles.barList}>
             {slices.map((slice) => (
-              <li key={slice.key} className={styles.legendRow}>
-                <span className={styles.legendLeft}>
-                  <span className={styles.dot} style={{ background: slice.color }} aria-hidden="true" />
-                  {slice.label}
-                </span>
-                <span className={styles.legendRight}>
-                  <span>{formatCompactCOP(slice.amount)}</span>
-                  <span className={styles.legendPercent} style={{ color: slice.color }}>
-                    {slice.displayPercent}%
+              <li key={slice.key} className={styles.barRow}>
+                <div className={styles.barHeader}>
+                  <span>{slice.label}</span>
+                  <span className={styles.barValue} style={{ color: slice.color }}>
+                    {slice.displayPercent}% - {formatCompactCOP(slice.amount)}
                   </span>
-                </span>
+                </div>
+                <div className={styles.barTrack}>
+                  <div
+                    className={styles.barFill}
+                    style={{ width: `${slice.displayPercent}%`, background: slice.color }}
+                  />
+                </div>
               </li>
             ))}
           </ul>
-        </div>
+        </>
       )}
     </section>
   )

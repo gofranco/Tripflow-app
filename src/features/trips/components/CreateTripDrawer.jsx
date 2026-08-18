@@ -6,6 +6,10 @@ function CreateTripDrawer({ open, onClose, onCreate }) {
   function handleSubmit(tripData) {
     onCreate(tripData)
     onClose()
+    // El viaje nuevo pasa a ser el activo y el Dashboard se reconstruye con sus
+    // datos — debe verse desde el header, no desde donde haya quedado el scroll
+    // del formulario/calendario.
+    window.scrollTo(0, 0)
   }
 
   return (

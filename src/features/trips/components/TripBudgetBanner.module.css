@@ -175,8 +175,25 @@
     padding: var(--spacing-16) var(--spacing-20);
   }
 
+  /* Sin esto, .topRow (flex-wrap: wrap) manda el badge a una segunda fila apenas
+     el nombre del viaje no entra en una línea. */
+  .topRow {
+    flex-wrap: nowrap;
+  }
+
+  /* min-width:0 es lo que permite que este grupo se encoja dentro del flex row en
+     vez de forzar su ancho de contenido — sin esto, text-overflow:ellipsis no
+     tiene efecto (el elemento nunca "se queda sin espacio"). */
+  .titleGroup {
+    min-width: 0;
+    flex: 1;
+  }
+
   .tripName {
     font-size: var(--font-size-h2);
     line-height: var(--line-height-h2);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }

@@ -9,11 +9,16 @@ const NAV_ITEMS = [{ key: 'dashboard', label: 'Dashboard', icon: dashboardIcon, 
 // Usuario demo — replica el placeholder "Amy Diaz" usado en el Dashboard final de Figma.
 const currentUser = { initials: 'AD', name: 'Amy Diaz', email: 'amydi26@gmail.com' }
 
-function SidebarNavigation({ variant = 'fixed', onNavigate }) {
+function SidebarNavigation({ variant = 'fixed', onNavigate, onClose }) {
   return (
     <aside className={`${styles.sidebar} ${variant === 'drawer' ? styles.drawerVariant : ''}`.trim()}>
       <div className={styles.logoRow}>
         <img src={logo} alt="Tripflow" className={styles.logo} />
+        {onClose && (
+          <button type="button" className={styles.closeButton} onClick={onClose}>
+            Close
+          </button>
+        )}
       </div>
 
       <nav className={styles.nav}>

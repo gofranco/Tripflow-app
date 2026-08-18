@@ -10,17 +10,17 @@ const ACTIVE_TRIP_ID_KEY = 'tripflow.activeTripId'
 const EXPENSES_KEY = 'tripflow.expenses'
 
 function loadInitialTrips() {
-  const stored = readJSON(TRIPS_KEY, null)
+  const stored = readJSON(localStorage, TRIPS_KEY, null)
   return Array.isArray(stored) && stored.length > 0 ? stored : initialTrips
 }
 
 function loadInitialActiveTripId(trips) {
-  const stored = readJSON(ACTIVE_TRIP_ID_KEY, null)
+  const stored = readJSON(localStorage, ACTIVE_TRIP_ID_KEY, null)
   return trips.some((trip) => trip.id === stored) ? stored : trips[0].id
 }
 
 function loadInitialExpenses() {
-  const stored = readJSON(EXPENSES_KEY, null)
+  const stored = readJSON(localStorage, EXPENSES_KEY, null)
   return Array.isArray(stored) ? stored : initialExpenses
 }
 
@@ -39,15 +39,15 @@ function App() {
   // qué handler la haya originado (crear viaje, registrar gasto, cambiar de
   // viaje activo). App sigue siendo el único dueño del estado.
   useEffect(() => {
-    writeJSON(TRIPS_KEY, trips)
+    writeJSON(localStorage, TRIPS_KEY, trips)
   }, [trips])
 
   useEffect(() => {
-    writeJSON(ACTIVE_TRIP_ID_KEY, activeTripId)
+    writeJSON(localStorage, ACTIVE_TRIP_ID_KEY, activeTripId)
   }, [activeTripId])
 
   useEffect(() => {
-    writeJSON(EXPENSES_KEY, expenses)
+    writeJSON(localStorage, EXPENSES_KEY, expenses)
   }, [expenses])
 
   function handleCreateTrip(tripData) {

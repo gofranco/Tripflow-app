@@ -18,20 +18,45 @@
   --navitem-active-color: var(--color-brand-primary);
 }
 
+/* flex:1 (no height:auto): dentro del Drawer móvil, .content ya es flex column con
+   flex:1 — este flex:1 hace que el sidebar llene esa altura disponible, para que su
+   fondo oscuro llegue hasta el fondo y el profile card (empujado por .nav{flex:1})
+   quede pegado abajo, igual que en Figma. */
 .drawerVariant {
   width: 100%;
-  height: auto;
+  flex: 1;
+  min-height: 0;
 }
 
 .logoRow {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: var(--spacing-24);
 }
 
 .logo {
   height: 45px;
   width: auto;
+}
+
+/* "Close" real (Body/Large regular) en vez de la X genérica del Drawer — mismo
+   patrón que CreateTripDrawer/AddExpenseDrawer, pero claro sobre el fondo oscuro. */
+.closeButton {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-large);
+  font-weight: var(--font-weight-body-large);
+  line-height: var(--line-height-body-large);
+  color: var(--color-bg-default);
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
 }
 
 .nav {

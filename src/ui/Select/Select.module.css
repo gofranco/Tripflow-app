@@ -53,3 +53,10 @@
   line-height: var(--line-height-caption-default);
   color: var(--color-danger-default);
 }
+
+/* Mismo motivo que ui/Input: iOS Safari hace auto-zoom bajo 16px. */
+@media (max-width: 640px) {
+  .select {
+    font-size: 16px;
+  }
+}

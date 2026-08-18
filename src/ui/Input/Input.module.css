@@ -57,3 +57,12 @@
   line-height: var(--line-height-caption-default);
   color: var(--color-danger-default);
 }
+
+/* iOS Safari hace auto-zoom al enfocar cualquier input/select con font-size < 16px.
+   16px es el mínimo real para evitarlo (no hay alternativa vía viewport/transform);
+   se limita a mobile para no alterar el tamaño visual en Desktop. */
+@media (max-width: 640px) {
+  .input {
+    font-size: 16px;
+  }
+}

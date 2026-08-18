@@ -54,3 +54,12 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* La ilustración se reduce proporcionalmente en mobile (no se oculta) para dejar
+   espacio al valor dentro de una card más angosta (~83vw en el carrusel). */
+@media (max-width: 560px) {
+  .visual img {
+    max-width: 88px;
+    max-height: 84px;
+  }
+}

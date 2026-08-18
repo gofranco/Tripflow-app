@@ -1,8 +1,20 @@
-/* Mismo patrón que CreateTripForm: flex:1 para que el calendario (sección principal)
-   empuje el CTA hacia el fondo del Drawer. */
+/* Estructura explícita de 2 regiones dentro del <form> (el Header ya lo resuelve
+   ui/Drawer): .scrollableContent (campos + calendario, con su propio scroll) y
+   .footer (el CTA, fuera de esa región — flex-shrink:0, nunca compite por espacio
+   con el calendario ni depende de que el min-height del calendario "calce" con el
+   alto disponible). El botón es un elemento de flujo normal — sin sticky/absolute/
+   fixed — así que geométricamente no puede superponerse a nada. */
 .form {
   flex: 1;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollableContent {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-16);
@@ -16,13 +28,16 @@
   color: var(--color-text-primary);
 }
 
-/* CTA único, sticky al fondo del drawer (igual que "Crear viaje"). */
+.footer {
+  flex-shrink: 0;
+  padding-top: var(--spacing-16);
+  /* Respeta el safe area inferior de iOS (home indicator) sin afectar el alto del botón. */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
 .submitButton {
-  position: sticky;
-  bottom: 0;
   width: 100%;
   height: 48px;
-  margin-top: var(--spacing-8);
   border-radius: var(--radius-xl);
   font-size: var(--font-size-body-large);
   font-weight: var(--font-weight-body-large-bold);
