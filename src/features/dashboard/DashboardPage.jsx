@@ -7,10 +7,9 @@ import RecentExpensesCard from '../expenses/components/RecentExpensesCard'
 import { expenseCategories } from '../expenses/mock/categories'
 import { recentExpenses } from '../expenses/mock/recentExpenses'
 import TripBudgetBanner from '../trips/components/TripBudgetBanner'
-import { activeTrip } from '../trips/mock/activeTrip'
 import styles from './DashboardPage.module.css'
 
-function DashboardPage() {
+function DashboardPage({ activeTrip }) {
   return (
     <div className={styles.page}>
       <TripBudgetBanner

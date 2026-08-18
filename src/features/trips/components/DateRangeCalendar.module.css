@@ -1,0 +1,147 @@
+/* Réplica del calendario real de "Create Trip Form" en Figma: encabezado de mes
+   centrado (Body/Large Bold), headers de día en gris, celdas de 40px, día
+   seleccionado con círculo sólido brand-primary, rango con banda rosa clara
+   continua. El calendario es la sección "principal" del formulario: crece
+   (flex:1) para llenar el alto disponible del Drawer, empujando el resumen y
+   la sección de presupuesto/CTA hacia el fondo. */
+
+.wrapper {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+}
+
+/* Sin borde/radio: el calendario debe leerse como contenido del propio Drawer,
+   no como una tarjeta anidada. La scrollbar se oculta visualmente mientras el
+   scroll interno se mantiene funcional (necesario para "múltiples meses"). */
+.scrollArea {
+  flex: 1;
+  min-height: 220px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollArea::-webkit-scrollbar {
+  display: none;
+}
+
+.month {
+  padding: var(--spacing-16) 0;
+}
+
+.monthLabel {
+  margin: 0 0 var(--spacing-8);
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-large);
+  font-weight: var(--font-weight-body-large-bold);
+  color: var(--color-text-primary);
+}
+
+.dayHeaders,
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.dayHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-small);
+  color: var(--color-text-tertiary);
+}
+
+.emptyDay {
+  height: 40px;
+}
+
+.day {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.day:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: -2px;
+}
+
+/* Franja del rango: 32px de alto (igual al círculo) para que el radio de los
+   extremos (radius-xl = 16px = mitad de 32px) calce exactamente con la curva
+   del círculo, sin cortes ni espacios entre ambos. rangeStart/rangeEnd arrancan
+   justo en el centro de la celda (= centro del círculo, que está centrado en
+   el botón), así que el corte recto nunca queda visible: el círculo, pintado
+   encima, lo cubre por completo. */
+.rangeMiddle,
+.rangeStart,
+.rangeEnd {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 32px;
+  background: var(--color-brand-primary-light);
+}
+
+.rangeMiddle {
+  left: 0;
+  right: 0;
+}
+
+.rangeStart {
+  left: 50%;
+  right: 0;
+  border-top-left-radius: var(--radius-xl);
+  border-bottom-left-radius: var(--radius-xl);
+}
+
+.rangeEnd {
+  left: 0;
+  right: 50%;
+  border-top-right-radius: var(--radius-xl);
+  border-bottom-right-radius: var(--radius-xl);
+}
+
+.dayNumber {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-xl);
+  font-size: var(--font-size-body-default);
+  color: var(--color-text-primary);
+}
+
+.day:hover .dayNumber:not(.daySelected) {
+  background: var(--color-bg-subtle);
+}
+
+.daySelected {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+}
+
+.summary {
+  flex-shrink: 0;
+  margin: 0;
+  padding: var(--spacing-8) var(--spacing-20);
+  border-radius: var(--radius-md);
+  background: var(--color-brand-primary-light);
+  color: var(--color-brand-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-default);
+  font-weight: var(--font-weight-body-default-bold);
+}

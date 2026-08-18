@@ -1,7 +1,18 @@
 import { useEffect, useId } from 'react'
 import styles from './Drawer.module.css'
 
-function Drawer({ open, onClose, title, children, side = 'right' }) {
+function Drawer({
+  open,
+  onClose,
+  title,
+  children,
+  side = 'right',
+  panelClassName = '',
+  titleClassName = '',
+  contentClassName = '',
+  closeLabel = '×',
+  closeButtonClassName = '',
+}) {
   const titleId = useId()
 
   useEffect(() => {
@@ -20,7 +31,7 @@ function Drawer({ open, onClose, title, children, side = 'right' }) {
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div
-        className={`${styles.panel} ${styles[side] || styles.right}`}
+        className={`${styles.panel} ${styles[side] || styles.right} ${panelClassName}`.trim()}
         role="dialog"
         aria-modal="true"
         aria-labelledby={title ? titleId : undefined}
@@ -28,15 +39,20 @@ function Drawer({ open, onClose, title, children, side = 'right' }) {
       >
         {title && (
           <div className={styles.header}>
-            <h2 id={titleId} className={styles.title}>
+            <h2 id={titleId} className={`${styles.title} ${titleClassName}`.trim()}>
               {title}
             </h2>
-            <button type="button" className={styles.closeButton} onClick={onClose} aria-label="Cerrar">
-              ×
+            <button
+              type="button"
+              className={`${styles.closeButton} ${closeButtonClassName}`.trim()}
+              onClick={onClose}
+              aria-label={closeLabel === '×' ? 'Cerrar' : undefined}
+            >
+              {closeLabel}
             </button>
           </div>
         )}
-        <div className={styles.content}>{children}</div>
+        <div className={`${styles.content} ${contentClassName}`.trim()}>{children}</div>
       </div>
     </div>
   )

@@ -1,17 +1,21 @@
+import { useState } from 'react'
 import addDarkIcon from '../assets/dashboard/icon-add-dark.svg'
 import addWhiteIcon from '../assets/dashboard/icon-add-white.svg'
 import deleteIcon from '../assets/dashboard/icon-delete.svg'
+import CreateTripDrawer from '../features/trips/components/CreateTripDrawer'
 import { Button, IconButton, Select } from '../ui'
 import styles from './DashboardHeader.module.css'
 
-// Datos estáticos — la lista real de viajes vendrá de features/trips en una etapa posterior.
-const TRIPS = [
-  { id: 'cartagena', name: 'Cartagena de Indias' },
-  { id: 'medellin', name: 'Medellín' },
-  { id: 'bogota', name: 'Bogotá' },
-]
+function DashboardHeader({
+  showMenuButton = false,
+  onMenuClick,
+  trips,
+  activeTripId,
+  onSelectTrip,
+  onCreateTrip,
+}) {
+  const [isCreateTripOpen, setIsCreateTripOpen] = useState(false)
 
-function DashboardHeader({ showMenuButton = false, onMenuClick }) {
   return (
     <header className={styles.header}>
       <div className={styles.greetingRow}>
@@ -35,10 +39,11 @@ function DashboardHeader({ showMenuButton = false, onMenuClick }) {
         <Select
           id="trip-selector"
           aria-label="Viaje activo"
-          defaultValue={TRIPS[0].id}
+          value={activeTripId}
+          onChange={(event) => onSelectTrip(event.target.value)}
           className={styles.tripSelect}
         >
-          {TRIPS.map((trip) => (
+          {trips.map((trip) => (
             <option key={trip.id} value={trip.id}>
               {trip.name}
             </option>
@@ -52,13 +57,24 @@ function DashboardHeader({ showMenuButton = false, onMenuClick }) {
           size="large"
         />
 
-        <Button variant="secondary" icon={<img src={addDarkIcon} alt="" />} className={styles.actionButton}>
+        <Button
+          variant="secondary"
+          icon={<img src={addDarkIcon} alt="" />}
+          className={styles.actionButton}
+          onClick={() => setIsCreateTripOpen(true)}
+        >
           Nuevo viaje
         </Button>
         <Button variant="primary" icon={<img src={addWhiteIcon} alt="" />} className={styles.actionButton}>
           Agregar gasto
         </Button>
       </div>
+
+      <CreateTripDrawer
+        open={isCreateTripOpen}
+        onClose={() => setIsCreateTripOpen(false)}
+        onCreate={onCreateTrip}
+      />
     </header>
   )
 }

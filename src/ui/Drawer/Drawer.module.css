@@ -1,5 +1,8 @@
-/* panel width, shadow and the 768px breakpoint are provisional — no spacing/shadow token
-   or breakpoint is documented in Figma yet; revisit once confirmed (see Button.module.css). */
+/* Ancho/radio/padding/tipografía del título son personalizables por el consumidor vía
+   las custom properties --drawer-* (ver panelClassName/titleClassName/contentClassName
+   en Drawer.jsx) sin necesidad de forkear el componente. Los defaults reproducen el
+   Drawer genérico ya usado (menú móvil); "Create Trip Form" en Figma no tiene radio y
+   usa 668px — eso se fija vía esas custom properties desde CreateTripDrawer, no aquí. */
 
 .overlay {
   position: fixed;
@@ -12,10 +15,10 @@
 
 .panel {
   height: 100%;
-  width: 480px;
+  width: var(--drawer-width, 480px);
   max-width: 100%;
   background: var(--color-surface-default);
-  border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+  border-radius: var(--drawer-radius, var(--radius-xl)) 0 0 var(--drawer-radius, var(--radius-xl));
   box-shadow: -4px 0 24px rgba(26, 26, 46, 0.12);
   display: flex;
   flex-direction: column;
@@ -28,7 +31,7 @@
 
 .left {
   margin-right: auto;
-  border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+  border-radius: 0 var(--drawer-radius, var(--radius-xl)) var(--drawer-radius, var(--radius-xl)) 0;
   box-shadow: 4px 0 24px rgba(26, 26, 46, 0.12);
 }
 
@@ -43,19 +46,21 @@
 .title {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: var(--font-size-h3);
-  line-height: var(--line-height-h3);
-  letter-spacing: var(--letter-spacing-h3);
-  font-weight: var(--font-weight-h3);
+  font-size: var(--drawer-title-size, var(--font-size-h3));
+  line-height: var(--drawer-title-line-height, var(--line-height-h3));
+  letter-spacing: var(--drawer-title-letter-spacing, var(--letter-spacing-h3));
+  font-weight: var(--drawer-title-weight, var(--font-weight-h3));
   color: var(--color-text-primary);
 }
 
 .closeButton {
   border: none;
   background: transparent;
-  font-size: 24px;
-  line-height: 1;
-  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: var(--drawer-close-size, 24px);
+  font-weight: var(--drawer-close-weight, 400);
+  line-height: var(--drawer-close-line-height, 1);
+  color: var(--drawer-close-color, var(--color-text-secondary));
   cursor: pointer;
   padding: 4px;
 }
@@ -65,8 +70,17 @@
   outline-offset: 2px;
 }
 
+/* flex column + flex:1: permite que un hijo directo del contenido (ej. un formulario)
+   use flex:1/margin-top:auto para anclar secciones cerca del fondo del Drawer.
+   min-height:0 evita el bug clásico de flexbox donde un hijo con overflow no puede
+   encogerse por debajo de su contenido. No afecta a otros usos del Drawer (ej. el
+   sidebar móvil), que ya se dimensionan por su propio contenido. */
 .content {
-  padding: 24px;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--drawer-content-padding, 24px);
 }
 
 @media (max-width: 768px) {
