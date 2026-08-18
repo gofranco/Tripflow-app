@@ -1,6 +1,6 @@
 import styles from './Button.module.css'
 
-const VARIANTS = ['primary', 'secondary', 'ghost']
+const VARIANTS = ['primary', 'secondary', 'ghost', 'danger']
 
 function Button({ variant = 'primary', icon, disabled = false, className = '', children, ...rest }) {
   const variantClass = VARIANTS.includes(variant) ? styles[variant] : styles.primary

@@ -84,3 +84,15 @@
 .ghost:hover:not(:disabled) {
   background: var(--color-bg-subtle);
 }
+
+/* CTA destructivo (ej. confirmar eliminación de un viaje) — mismo tratamiento
+   visual que .primary, pero con el color semántico danger existente en vez del
+   brand primary, para diferenciarlo claramente de una acción normal. */
+.danger {
+  background: var(--color-danger-default);
+  color: var(--color-text-on-brand);
+}
+
+.danger:hover:not(:disabled) {
+  background: var(--color-danger-dark);
+}

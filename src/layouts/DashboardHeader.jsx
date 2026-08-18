@@ -4,12 +4,18 @@ import addWhiteIcon from '../assets/dashboard/icon-add-white.svg'
 import deleteIcon from '../assets/dashboard/icon-delete.svg'
 import AddExpenseDrawer from '../features/expenses/components/AddExpenseDrawer'
 import CreateTripDrawer from '../features/trips/components/CreateTripDrawer'
+import DeleteTripDialog from '../features/trips/components/DeleteTripDialog'
+import { initialTrips } from '../features/trips/mock/trips'
 import { Button, IconButton, Logo, Select } from '../ui'
 import { readJSON, writeJSON } from '../utils/storage'
 import styles from './DashboardHeader.module.css'
 
 const CREATE_TRIP_OPEN_KEY = 'tripflow.session.isCreateTripOpen'
 const ADD_EXPENSE_OPEN_KEY = 'tripflow.session.isAddExpenseOpen'
+// Viajes semilla (ej. "Cartagena de Indias") — no se pueden eliminar, a
+// diferencia de los viajes que el usuario crea con "Nuevo viaje". Evita perder
+// el viaje de ejemplo por accidente; no aplica a nada creado por el usuario.
+const SEED_TRIP_IDS = new Set(initialTrips.map((trip) => trip.id))
 
 function DashboardHeader({
   showMenuButton = false,
@@ -19,6 +25,7 @@ function DashboardHeader({
   onSelectTrip,
   onCreateTrip,
   onCreateExpense,
+  onDeleteTrip,
 }) {
   // sessionStorage (no localStorage): si iOS Safari recarga la pestaña al volver
   // de background, el Drawer que estaba abierto se vuelve a abrir solo; se limpia
@@ -29,6 +36,12 @@ function DashboardHeader({
   const [isAddExpenseOpen, setIsAddExpenseOpen] = useState(() =>
     readJSON(sessionStorage, ADD_EXPENSE_OPEN_KEY, false),
   )
+  // No se persiste en sessionStorage a propósito: es una confirmación de una
+  // acción destructiva, no debería "reaparecer" sola si el usuario vuelve a
+  // background y regresa (a diferencia de los Drawers de creación).
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
+  const activeTrip = trips.find((trip) => trip.id === activeTripId) ?? null
+  const isDemoTrip = Boolean(activeTrip && SEED_TRIP_IDS.has(activeTrip.id))
 
   useEffect(() => {
     writeJSON(sessionStorage, CREATE_TRIP_OPEN_KEY, isCreateTripOpen)
@@ -78,9 +91,11 @@ function DashboardHeader({
 
           <IconButton
             icon={<img src={deleteIcon} alt="" />}
-            label="Eliminar viaje"
+            label={isDemoTrip ? 'El viaje de ejemplo no se puede eliminar' : 'Eliminar viaje'}
             variant="outline"
             size="large"
+            disabled={!activeTrip || isDemoTrip}
+            onClick={() => setIsDeleteDialogOpen(true)}
           />
         </div>
 
@@ -98,6 +113,7 @@ function DashboardHeader({
             icon={<img src={addWhiteIcon} alt="" />}
             className={styles.actionButton}
             onClick={() => setIsAddExpenseOpen(true)}
+            disabled={!activeTrip}
           >
             Agregar gasto
           </Button>
@@ -114,6 +130,16 @@ function DashboardHeader({
         open={isAddExpenseOpen}
         onClose={() => setIsAddExpenseOpen(false)}
         onCreate={onCreateExpense}
+      />
+
+      <DeleteTripDialog
+        open={isDeleteDialogOpen}
+        trip={activeTrip}
+        onCancel={() => setIsDeleteDialogOpen(false)}
+        onConfirm={(tripId) => {
+          onDeleteTrip(tripId)
+          setIsDeleteDialogOpen(false)
+        }}
       />
     </header>
   )

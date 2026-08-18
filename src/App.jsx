@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import DashboardPage from './features/dashboard/DashboardPage'
 import { initialExpenses } from './features/expenses/mock/seedExpenses'
+import EmptyTripsState from './features/trips/components/EmptyTripsState'
 import { initialTrips } from './features/trips/mock/trips'
 import { AppShell } from './layouts'
 import { readJSON, writeJSON } from './utils/storage'
@@ -11,12 +12,16 @@ const EXPENSES_KEY = 'tripflow.expenses'
 
 function loadInitialTrips() {
   const stored = readJSON(localStorage, TRIPS_KEY, null)
-  return Array.isArray(stored) && stored.length > 0 ? stored : initialTrips
+  // Array.isArray solo (sin ".length > 0"): un array vacío es un estado real
+  // y válido (el usuario eliminó todos sus viajes) — debe respetarse tal cual,
+  // no tratarse como "nunca hubo datos" y resucitar la semilla demo.
+  return Array.isArray(stored) ? stored : initialTrips
 }
 
 function loadInitialActiveTripId(trips) {
   const stored = readJSON(localStorage, ACTIVE_TRIP_ID_KEY, null)
-  return trips.some((trip) => trip.id === stored) ? stored : trips[0].id
+  if (trips.some((trip) => trip.id === stored)) return stored
+  return trips[0]?.id ?? null
 }
 
 function loadInitialExpenses() {
@@ -33,7 +38,9 @@ function App() {
   // (ver features/dashboard/useActiveTripSummary).
   const [expenses, setExpenses] = useState(loadInitialExpenses)
 
-  const activeTrip = trips.find((trip) => trip.id === activeTripId) ?? trips[0]
+  // A diferencia de las demás etapas, acá SÍ puede no haber ningún viaje activo
+  // (justo después de eliminar el último) — trips[0] puede ser undefined.
+  const activeTrip = trips.find((trip) => trip.id === activeTripId) ?? trips[0] ?? null
 
   // Persistencia: cada pieza de estado se guarda apenas cambia, sin importar
   // qué handler la haya originado (crear viaje, registrar gasto, cambiar de
@@ -61,15 +68,28 @@ function App() {
     setExpenses((prev) => [newExpense, ...prev])
   }
 
+  // Elimina el viaje y sus gastos asociados. Si era el viaje activo, selecciona
+  // automáticamente otro existente (o ninguno, si era el último) — el Dashboard
+  // se actualiza solo porque activeTrip se deriva de activeTripId en cada render.
+  function handleDeleteTrip(tripId) {
+    const remainingTrips = trips.filter((trip) => trip.id !== tripId)
+    setTrips(remainingTrips)
+    setExpenses((prev) => prev.filter((expense) => expense.tripId !== tripId))
+    if (activeTripId === tripId) {
+      setActiveTripId(remainingTrips[0]?.id ?? null)
+    }
+  }
+
   return (
     <AppShell
       trips={trips}
-      activeTripId={activeTrip.id}
+      activeTripId={activeTrip?.id ?? null}
       onSelectTrip={setActiveTripId}
       onCreateTrip={handleCreateTrip}
       onCreateExpense={handleCreateExpense}
+      onDeleteTrip={handleDeleteTrip}
     >
-      <DashboardPage activeTrip={activeTrip} expenses={expenses} />
+      {activeTrip ? <DashboardPage activeTrip={activeTrip} expenses={expenses} /> : <EmptyTripsState />}
     </AppShell>
   )
 }

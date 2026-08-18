@@ -1,0 +1,62 @@
+/* Mismos tokens/valores que BudgetAlertPopup (card claro del Design System, no
+   la paleta oscura del AI Receipt Scanner): surface/border/radius/shadow/spacing
+   ya existentes, sin inventar valores nuevos. */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-16);
+  background: rgba(26, 26, 46, 0.4);
+  z-index: 1000;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  width: 360px;
+  max-width: 100%;
+  padding: var(--spacing-24);
+  background: var(--color-surface-default);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 12px 12px rgba(26, 26, 46, 0.08);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-h3);
+  letter-spacing: var(--letter-spacing-h3);
+  color: var(--color-text-primary);
+}
+
+.message {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-default);
+  line-height: var(--line-height-body-default);
+  color: var(--color-text-secondary);
+}
+
+.message strong {
+  color: var(--color-text-primary);
+}
+
+.actions {
+  display: flex;
+  gap: var(--spacing-12);
+  width: 100%;
+}
+
+.actionButton {
+  flex: 1;
+}
+
+@media (max-width: 480px) {
+  .actions {
+    flex-direction: column-reverse;
+  }
+}

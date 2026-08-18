@@ -9,7 +9,7 @@ import styles from './AppShell.module.css'
 // el sidebar pasa de columna fija a Drawer.
 const DESKTOP_QUERY = '(min-width: 1024px)'
 
-function AppShell({ children, trips, activeTripId, onSelectTrip, onCreateTrip, onCreateExpense }) {
+function AppShell({ children, trips, activeTripId, onSelectTrip, onCreateTrip, onCreateExpense, onDeleteTrip }) {
   const isDesktop = useMediaQuery(DESKTOP_QUERY)
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -41,6 +41,7 @@ function AppShell({ children, trips, activeTripId, onSelectTrip, onCreateTrip, o
           onSelectTrip={onSelectTrip}
           onCreateTrip={onCreateTrip}
           onCreateExpense={onCreateExpense}
+          onDeleteTrip={onDeleteTrip}
         />
         <main className={styles.content}>{children}</main>
       </div>
