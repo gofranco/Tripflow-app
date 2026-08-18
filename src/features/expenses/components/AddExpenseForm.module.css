@@ -20,6 +20,48 @@
   gap: var(--spacing-16);
 }
 
+/* Trigger del AI Receipt Scanner — ícono "document_scanner" dentro del campo de
+   monto, igual que en el mockup real de Figma ("Add Expense Form", nodo 135:2132):
+   ahí vive dentro del propio dropdown-field, a la derecha. No se tocó ui/Input
+   para agregarle un slot de ícono genérico (afectaría todos sus usos en la app) —
+   se logra con un wrapper posicionado, scoped solo a este formulario. */
+.amountFieldWrapper {
+  position: relative;
+}
+
+.amountInput input {
+  padding-right: 48px;
+}
+
+.scanTriggerButton {
+  position: absolute;
+  right: var(--spacing-8);
+  bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.scanTriggerButton img {
+  width: 22px;
+  height: 22px;
+}
+
+.scanTriggerButton:hover {
+  background: var(--color-bg-subtle);
+}
+
+.scanTriggerButton:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
 .sectionLabel {
   margin: var(--spacing-8) 0 0;
   font-family: var(--font-body);

@@ -1,0 +1,216 @@
+/* Réplica del flujo "AI Receipt Scanner" de Figma (pantalla "Procesando Factura",
+   nodo 137:1728 — ya no hay pantalla de confirmación intermedia, ver ReceiptScanner.jsx)
+   — paleta oscura dedicada a este flujo (no son tokens del design system claro del
+   resto de la app, son literales porque así los define Figma para esta pantalla).
+   reduced-motion se maneja con el kill-switch global existente (ver styles/global.css),
+   no hace falta una regla aparte acá. */
+
+.hiddenInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  max-height: 874px;
+  background: #0f0f1a;
+  border-radius: 32px;
+  overflow: hidden;
+}
+
+@media (max-width: 480px) {
+  .screen {
+    max-height: none;
+    border-radius: 0;
+  }
+}
+
+/* Solo Desktop: el panel deja de tener proporción de teléfono (420x874, muy
+   alargado) y pasa a algo más cuadrado — el mobile no se toca, mantiene su
+   forma original. */
+@media (min-width: 1024px) {
+  .screen {
+    max-height: 480px;
+  }
+}
+
+.primaryAction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  height: 48px;
+  border: none;
+  border-radius: var(--radius-lg);
+  background: var(--color-brand-primary);
+  color: white;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-body-large);
+  font-weight: var(--font-weight-h1);
+  cursor: pointer;
+  transition: filter 120ms ease;
+}
+
+.primaryAction:hover {
+  filter: brightness(0.92);
+}
+
+.secondaryAction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  color: white;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-body-large);
+  font-weight: var(--font-weight-h4);
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.secondaryAction:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* --- Processing --- */
+
+.processingMain {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-40, 40px);
+  padding: var(--spacing-40, 40px);
+  text-align: center;
+}
+
+.aiIcon {
+  position: relative;
+  width: 112px;
+  height: 84px;
+  /* Sutil pulso — no está definido en Figma (get_motion_context no devolvió
+     ninguna animación para este frame), agregado para que "se sienta rápido"
+     sin ser teatral, per el pedido explícito de UX del vertical slice. */
+  animation: receiptScanPulse 1.6s ease-in-out infinite;
+}
+
+.aiIconA,
+.aiIconB {
+  position: absolute;
+  top: 0;
+  height: 100%;
+}
+
+.aiIconA {
+  right: 0;
+  width: 46%;
+}
+
+.aiIconB {
+  left: 0;
+  width: 54%;
+}
+
+@keyframes receiptScanPulse {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.feedbackInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+}
+
+.processingTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-h1);
+  color: white;
+}
+
+.processingSubtitle {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-default);
+  line-height: var(--line-height-body-default);
+  color: #8e8ea0;
+}
+
+.progressTrack {
+  width: 220px;
+  height: 4px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.progressFill {
+  width: 45%;
+  height: 100%;
+  border-radius: 100px;
+  background: var(--color-brand-primary);
+  animation: receiptScanProgress 1.3s ease-in-out infinite;
+}
+
+@keyframes receiptScanProgress {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+/* --- Error (sin diseño en Figma) --- */
+
+.errorBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: rgba(240, 68, 56, 0.15);
+  color: var(--color-danger-default);
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: var(--font-weight-h1);
+}
+
+.errorActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  width: 100%;
+}
