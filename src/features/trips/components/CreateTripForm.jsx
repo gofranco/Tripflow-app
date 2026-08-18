@@ -1,6 +1,5 @@
 import { useId, useState } from 'react'
-import { Button, Input } from '../../../ui'
-import DateRangeCalendar from './DateRangeCalendar'
+import { Button, Calendar, Input } from '../../../ui'
 import { destinationSuggestions } from '../mock/trips'
 import styles from './CreateTripForm.module.css'
 
@@ -57,7 +56,7 @@ function CreateTripForm({ onSubmit }) {
       </datalist>
 
       <p className={styles.sectionLabel}>Cuando?</p>
-      <DateRangeCalendar startDate={startDate} endDate={endDate} onChange={handleDateRangeChange} />
+      <Calendar mode="range" startDate={startDate} endDate={endDate} onChange={handleDateRangeChange} />
 
       <div className={styles.budgetHeader}>
         <span>Presupuesto del viaje</span>

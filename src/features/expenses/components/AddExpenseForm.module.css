@@ -1,0 +1,29 @@
+/* Mismo patrón que CreateTripForm: flex:1 para que el calendario (sección principal)
+   empuje el CTA hacia el fondo del Drawer. */
+.form {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.sectionLabel {
+  margin: var(--spacing-8) 0 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-default);
+  font-weight: var(--font-weight-body-default-bold);
+  color: var(--color-text-primary);
+}
+
+/* CTA único, sticky al fondo del drawer (igual que "Crear viaje"). */
+.submitButton {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  height: 48px;
+  margin-top: var(--spacing-8);
+  border-radius: var(--radius-xl);
+  font-size: var(--font-size-body-large);
+  font-weight: var(--font-weight-body-large-bold);
+}

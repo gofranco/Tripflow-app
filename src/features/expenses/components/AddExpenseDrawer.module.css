@@ -1,0 +1,32 @@
+/* Mismos overrides que CreateTripDrawer (668px, sin radio, título H2, padding real,
+   "Close" en vez de ×) — el frame de Figma de "Add Expense Form" comparte esa
+   estructura de Drawer. */
+
+.panel {
+  --drawer-width: 668px;
+  --drawer-radius: 0px;
+}
+
+.title {
+  --drawer-title-size: var(--font-size-h2);
+  --drawer-title-line-height: var(--line-height-h2);
+  --drawer-title-letter-spacing: var(--letter-spacing-h2);
+  --drawer-title-weight: var(--font-weight-h2);
+}
+
+.closeButton {
+  --drawer-close-size: var(--font-size-body-large);
+  --drawer-close-weight: var(--font-weight-body-large);
+  --drawer-close-line-height: var(--line-height-body-large);
+  --drawer-close-color: var(--color-text-primary);
+}
+
+.content {
+  --drawer-content-padding: 48px 48px 40px;
+}
+
+@media (max-width: 640px) {
+  .content {
+    --drawer-content-padding: var(--spacing-24) var(--spacing-20) var(--spacing-20);
+  }
+}

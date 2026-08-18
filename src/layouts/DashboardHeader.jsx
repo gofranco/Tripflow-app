@@ -2,6 +2,7 @@ import { useState } from 'react'
 import addDarkIcon from '../assets/dashboard/icon-add-dark.svg'
 import addWhiteIcon from '../assets/dashboard/icon-add-white.svg'
 import deleteIcon from '../assets/dashboard/icon-delete.svg'
+import AddExpenseDrawer from '../features/expenses/components/AddExpenseDrawer'
 import CreateTripDrawer from '../features/trips/components/CreateTripDrawer'
 import { Button, IconButton, Select } from '../ui'
 import styles from './DashboardHeader.module.css'
@@ -13,8 +14,10 @@ function DashboardHeader({
   activeTripId,
   onSelectTrip,
   onCreateTrip,
+  onCreateExpense,
 }) {
   const [isCreateTripOpen, setIsCreateTripOpen] = useState(false)
+  const [isAddExpenseOpen, setIsAddExpenseOpen] = useState(false)
 
   return (
     <header className={styles.header}>
@@ -65,7 +68,12 @@ function DashboardHeader({
         >
           Nuevo viaje
         </Button>
-        <Button variant="primary" icon={<img src={addWhiteIcon} alt="" />} className={styles.actionButton}>
+        <Button
+          variant="primary"
+          icon={<img src={addWhiteIcon} alt="" />}
+          className={styles.actionButton}
+          onClick={() => setIsAddExpenseOpen(true)}
+        >
           Agregar gasto
         </Button>
       </div>
@@ -74,6 +82,12 @@ function DashboardHeader({
         open={isCreateTripOpen}
         onClose={() => setIsCreateTripOpen(false)}
         onCreate={onCreateTrip}
+      />
+
+      <AddExpenseDrawer
+        open={isAddExpenseOpen}
+        onClose={() => setIsAddExpenseOpen(false)}
+        onCreate={onCreateExpense}
       />
     </header>
   )
