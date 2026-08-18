@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { resolveCurrency } from '../../utils/currency'
 import { categoryDefinitions } from '../expenses/mock/categories'
 
 const RECENT_EXPENSES_LIMIT = 6
@@ -22,6 +23,10 @@ export function useActiveTripSummary(activeTrip, expenses) {
     // propagar NaN/Infinity hacia abajo — se trata como "sin presupuesto".
     const budgetTotal = toFiniteNumber(activeTrip.budgetTotal)
 
+    // Viajes creados antes del selector de moneda (o con localStorage corrupto)
+    // no tienen `currency` — se muestran en COP sin reescribir el viaje guardado.
+    const currency = resolveCurrency(activeTrip.currency)
+
     const spent = tripExpenses.reduce((sum, expense) => sum + toFiniteNumber(expense.amount), 0)
     const available = budgetTotal - spent
     const percentUsed = budgetTotal > 0 ? (spent / budgetTotal) * 100 : 0
@@ -41,6 +46,6 @@ export function useActiveTripSummary(activeTrip, expenses) {
       .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
       .slice(0, RECENT_EXPENSES_LIMIT)
 
-    return { budgetTotal, spent, available, percentUsed, categories, recentExpenses }
+    return { budgetTotal, spent, available, percentUsed, categories, recentExpenses, currency }
   }, [activeTrip, expenses])
 }

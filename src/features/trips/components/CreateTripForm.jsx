@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Button, Calendar, Input } from '../../../ui'
+import { CURRENCY_OPTIONS, DEFAULT_CURRENCY, resolveCurrency } from '../../../utils/currency'
 import { formatShortDate, getTodayISO } from '../../../utils/date'
 import { readJSON, removeItem, writeJSON } from '../../../utils/storage'
 import { destinationSuggestions } from '../mock/trips'
@@ -9,14 +10,17 @@ import styles from './CreateTripForm.module.css'
 // pestaña al volver de background, pero se limpia al cerrar la pestaña de
 // verdad — es un draft transitorio, no un dato persistente del producto.
 const DRAFT_KEY = 'tripflow.session.createTripDraft'
-const EMPTY_DRAFT = { destination: '', startDate: '', endDate: '', budget: '' }
+const EMPTY_DRAFT = { destination: '', startDate: '', endDate: '', budget: '', currency: DEFAULT_CURRENCY }
 
 function loadDraft() {
   const stored = readJSON(sessionStorage, DRAFT_KEY, null)
   const draft = stored && typeof stored === 'object' ? { ...EMPTY_DRAFT, ...stored } : EMPTY_DRAFT
   // La fecha de hoy solo se usa como default cuando no hay un draft/valor previo
   // (ni guardado en sessionStorage ni ya elegido por el usuario en esta carga).
-  return draft.startDate ? draft : { ...draft, startDate: getTodayISO() }
+  const withDate = draft.startDate ? draft : { ...draft, startDate: getTodayISO() }
+  // Un draft de sessionStorage anterior a este selector (o corrupto) puede no
+  // traer `currency` o traer un código no soportado.
+  return { ...withDate, currency: resolveCurrency(withDate.currency) }
 }
 
 function CreateTripForm({ onSubmit }) {
@@ -26,7 +30,7 @@ function CreateTripForm({ onSubmit }) {
   // (ni ancho, ni radius, ni tipografía) — por eso nunca calzaba con el input.
   const [isDestinationOpen, setIsDestinationOpen] = useState(false)
   const destinationWrapperRef = useRef(null)
-  const { destination, startDate, endDate, budget } = draft
+  const { destination, startDate, endDate, budget, currency } = draft
 
   function updateDraft(patch) {
     setDraft((prev) => {
@@ -99,6 +103,7 @@ function CreateTripForm({ onSubmit }) {
       startDate,
       endDate,
       budgetTotal: budgetValue,
+      currency,
     })
     removeItem(sessionStorage, DRAFT_KEY)
   }
@@ -148,7 +153,19 @@ function CreateTripForm({ onSubmit }) {
 
       <div className={styles.budgetHeader}>
         <span>Presupuesto del viaje</span>
-        <span className={styles.budgetUnit}>COP</span>
+        <select
+          id="trip-currency"
+          aria-label="Moneda del viaje"
+          className={styles.currencySelect}
+          value={currency}
+          onChange={(event) => updateDraft({ currency: event.target.value })}
+        >
+          {CURRENCY_OPTIONS.map((option) => (
+            <option key={option.code} value={option.code}>
+              {option.code}
+            </option>
+          ))}
+        </select>
       </div>
       <Input
         id="trip-budget"
@@ -156,7 +173,7 @@ function CreateTripForm({ onSubmit }) {
         inputMode="numeric"
         min="0"
         step="10000"
-        placeholder="$0 COP"
+        placeholder={`$0 ${currency}`}
         value={budget}
         onChange={(event) => updateDraft({ budget: event.target.value })}
         required

@@ -23,7 +23,7 @@ function roundPercentagesToTotal(values, total) {
   return result
 }
 
-function DonutChartCard({ categories, totalLabel = 'Gastado' }) {
+function DonutChartCard({ categories, totalLabel = 'Gastado', currency }) {
   const total = categories.reduce((sum, category) => sum + category.amount, 0)
   const isEmpty = categories.length === 0 || total <= 0
 
@@ -61,7 +61,7 @@ function DonutChartCard({ categories, totalLabel = 'Gastado' }) {
           <div className={styles.body}>
             <div className={styles.donut} style={{ background: `conic-gradient(${gradient})` }}>
               <div className={styles.center}>
-                <span className={styles.centerValue}>{formatCompactCOP(total)}</span>
+                <span className={styles.centerValue}>{formatCompactCOP(total, currency)}</span>
                 <span className={styles.centerLabel}>{totalLabel}</span>
               </div>
             </div>
@@ -74,7 +74,7 @@ function DonutChartCard({ categories, totalLabel = 'Gastado' }) {
                     {slice.label}
                   </span>
                   <span className={styles.legendRight}>
-                    <span>{formatCompactCOP(slice.amount)}</span>
+                    <span>{formatCompactCOP(slice.amount, currency)}</span>
                     <span className={styles.legendPercent} style={{ color: slice.color }}>
                       {slice.displayPercent}%
                     </span>
@@ -92,7 +92,7 @@ function DonutChartCard({ categories, totalLabel = 'Gastado' }) {
                 <div className={styles.barHeader}>
                   <span>{slice.label}</span>
                   <span className={styles.barValue} style={{ color: slice.color }}>
-                    {slice.displayPercent}% - {formatCompactCOP(slice.amount)}
+                    {slice.displayPercent}% - {formatCompactCOP(slice.amount, currency)}
                   </span>
                 </div>
                 <div className={styles.barTrack}>

@@ -109,9 +109,39 @@
   color: var(--color-text-primary);
 }
 
-.budgetUnit {
-  font-weight: var(--font-weight-body-default);
+/* Selector de moneda del viaje — mismo lenguaje visual que ui/Select (radio,
+   borde, tipografía, focus ring), pero compacto: vive en la fila de encabezado
+   junto al label "Presupuesto del viaje", no como un field de ancho completo. */
+.currencySelect {
+  height: 32px;
+  padding: 0 var(--spacing-8);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-card);
+  background: var(--color-surface-default);
   color: var(--color-text-tertiary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-default);
+  font-weight: var(--font-weight-body-default);
+  line-height: var(--line-height-body-default);
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.currencySelect:hover {
+  border-color: var(--color-text-tertiary);
+}
+
+.currencySelect:focus-visible {
+  outline: none;
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 0 0 3px var(--color-brand-primary-light);
+}
+
+/* Mismo motivo que ui/Input y ui/Select: iOS Safari hace auto-zoom bajo 16px. */
+@media (max-width: 640px) {
+  .currencySelect {
+    font-size: 16px;
+  }
 }
 
 /* CTA único (Figma no tiene botón "Cancelar" — se cierra con "Close" en el header).

@@ -18,7 +18,7 @@ const CATEGORY_META = {
   Otros: { icon: shoppingBagIcon, color: 'var(--color-category-other)' },
 }
 
-function ExpenseRow({ concept, category, date, amount }) {
+function ExpenseRow({ concept, category, date, amount, currency }) {
   const categoryLabel = category || 'Otros'
   const meta = CATEGORY_META[categoryLabel] ?? CATEGORY_META.Otros
   const description = concept || categoryLabel
@@ -40,7 +40,7 @@ function ExpenseRow({ concept, category, date, amount }) {
           <Badge color={meta.color}>{categoryLabel}</Badge>
         </div>
       </div>
-      <span className={styles.amount}>{formatExpenseAmount(amount)}</span>
+      <span className={styles.amount}>{formatExpenseAmount(amount, currency)}</span>
     </li>
   )
 }

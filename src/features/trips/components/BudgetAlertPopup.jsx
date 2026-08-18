@@ -7,7 +7,7 @@ import styles from './BudgetAlertPopup.module.css'
 // .cardClosing en BudgetAlertPopup.module.css.
 const EXIT_ANIMATION_MS = 160
 
-function BudgetAlertPopup({ open, onClose, percentUsed, spent, budgetTotal }) {
+function BudgetAlertPopup({ open, onClose, percentUsed, spent, budgetTotal, currency }) {
   const state = resolveBudgetAlertState(percentUsed)
   const isOpen = open && Boolean(state)
 
@@ -88,9 +88,9 @@ function BudgetAlertPopup({ open, onClose, percentUsed, spent, budgetTotal }) {
           </div>
           <div className={styles.valuesRow}>
             <p className={styles.spentValue}>
-              Gastado: <strong>{formatCOP(spent)}</strong>
+              Gastado: <strong>{formatCOP(spent, currency)}</strong>
             </p>
-            <p className={styles.totalValue}>Total: {formatCOP(budgetTotal)}</p>
+            <p className={styles.totalValue}>Total: {formatCOP(budgetTotal, currency)}</p>
           </div>
         </div>
 

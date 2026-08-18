@@ -19,7 +19,7 @@ function resolveBand(percentUsed) {
   return BUDGET_BANDS.find((band) => percentUsed <= band.max) ?? BUDGET_BANDS[BUDGET_BANDS.length - 1]
 }
 
-function TripBudgetBanner({ tripName, budgetTotal, spent }) {
+function TripBudgetBanner({ tripName, budgetTotal, spent, currency }) {
   // budgetTotal/spent inválidos (corrupción de datos, viaje sin presupuesto
   // numérico) nunca deben producir NaN/Infinity visibles en el banner.
   const safeBudgetTotal = Number.isFinite(budgetTotal) ? budgetTotal : 0
@@ -51,7 +51,7 @@ function TripBudgetBanner({ tripName, budgetTotal, spent }) {
 
         <p className={styles.remaining}>
           {isOverBudget ? 'Presupuesto excedido: ' : 'Presupuesto restante: '}
-          <span className={styles.remainingAmount}>{formatCOP(Math.abs(remaining))}</span>
+          <span className={styles.remainingAmount}>{formatCOP(Math.abs(remaining), currency)}</span>
         </p>
       </div>
     </section>

@@ -11,7 +11,10 @@ import { useActiveTripSummary } from './useActiveTripSummary'
 import styles from './DashboardPage.module.css'
 
 function DashboardPage({ activeTrip, expenses }) {
-  const { budgetTotal, spent, percentUsed, categories, recentExpenses } = useActiveTripSummary(activeTrip, expenses)
+  const { budgetTotal, spent, percentUsed, categories, recentExpenses, currency } = useActiveTripSummary(
+    activeTrip,
+    expenses,
+  )
   const { alertState, dismiss } = useBudgetAlertTrigger(activeTrip.id, percentUsed)
 
   return (
@@ -28,7 +31,7 @@ function DashboardPage({ activeTrip, expenses }) {
           tocar el estado de trips/expenses ni recargar nada de verdad. También hace
           que useBudgetAlertTrigger arranque limpio por viaje (ver ese hook). */}
       <div key={activeTrip.id} className={styles.page}>
-        <TripBudgetBanner tripName={activeTrip.name} budgetTotal={budgetTotal} spent={spent} />
+        <TripBudgetBanner tripName={activeTrip.name} budgetTotal={budgetTotal} spent={spent} currency={currency} />
 
         <div className={styles.grid}>
           <div className={styles.leftColumn}>
@@ -36,20 +39,20 @@ function DashboardPage({ activeTrip, expenses }) {
               <StatCard
                 visual={<img src={presupuestoIllustration} alt="" />}
                 label="Presupuesto Total"
-                value={formatCOP(budgetTotal)}
+                value={formatCOP(budgetTotal, currency)}
               />
               <StatCard
                 visual={<img src={gastadoIllustration} alt="" />}
                 label="Gastado"
-                value={formatCOP(spent)}
+                value={formatCOP(spent, currency)}
                 valueClassName={styles.gastadoValue}
               />
             </div>
 
-            <DonutChartCard categories={categories} />
+            <DonutChartCard categories={categories} currency={currency} />
           </div>
 
-          <RecentExpensesCard expenses={recentExpenses} />
+          <RecentExpensesCard expenses={recentExpenses} currency={currency} />
         </div>
       </div>
 
@@ -58,6 +61,7 @@ function DashboardPage({ activeTrip, expenses }) {
         percentUsed={percentUsed}
         spent={spent}
         budgetTotal={budgetTotal}
+        currency={currency}
         onClose={dismiss}
       />
     </>

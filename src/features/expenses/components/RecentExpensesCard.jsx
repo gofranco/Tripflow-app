@@ -1,7 +1,7 @@
 import ExpenseRow from './ExpenseRow'
 import styles from './RecentExpensesCard.module.css'
 
-function RecentExpensesCard({ expenses }) {
+function RecentExpensesCard({ expenses, currency }) {
   return (
     <section className={styles.card}>
       <h3 className={styles.title}>Gastos recientes</h3>
@@ -14,7 +14,7 @@ function RecentExpensesCard({ expenses }) {
       ) : (
         <ul className={styles.list}>
           {expenses.map((expense) => (
-            <ExpenseRow key={expense.id} {...expense} />
+            <ExpenseRow key={expense.id} {...expense} currency={currency} />
           ))}
         </ul>
       )}

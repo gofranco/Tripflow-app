@@ -13,9 +13,16 @@ const SHORT_MONTH_NAMES = [
   'Dic',
 ]
 
-// '2026-08-10' -> '10 Ago'
+// '2026-08-10' -> '10 Ago'. Un expense con `date` corrupto (null/undefined/""/
+// no numérico) puede llegar desde localStorage editado a mano o datos previos
+// inválidos — nunca debe tirar la SPA entera, así que se sanea igual que
+// `amount`/`budgetTotal` en useActiveTripSummary.
 export function formatShortDate(iso) {
+  if (typeof iso !== 'string') return '—'
+
   const [, month, day] = iso.split('-').map(Number)
+  if (!Number.isFinite(month) || !Number.isFinite(day) || month < 1 || month > 12) return '—'
+
   return `${day} ${SHORT_MONTH_NAMES[month - 1]}`
 }
 

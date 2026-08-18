@@ -118,12 +118,12 @@ function AddExpenseForm({ onSubmit }) {
         />
 
         <Select
-          label="Categoria (Optional)"
+          label="Categoría (Opcional)"
           id={categorySelectId}
           value={category}
           onChange={(event) => updateDraft({ category: event.target.value })}
         >
-          <option value="">Select...</option>
+          <option value="">Seleccionar...</option>
           {categoryDefinitions.map((item) => (
             <option key={item.key} value={item.label}>
               {item.label}
