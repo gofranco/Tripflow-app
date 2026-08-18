@@ -4,6 +4,13 @@
    Drawer genérico ya usado (menú móvil); "Create Trip Form" en Figma no tiene radio y
    usa 668px — eso se fija vía esas custom properties desde CreateTripDrawer, no aquí. */
 
+/* Entrada/salida vía transform + opacity únicamente (nada de width/height/left):
+   .panel arranca desplazado fuera de pantalla en su propio eje (100%/-100%, relativo
+   a su propio ancho, así que funciona igual en Desktop y en mobile a 100vw) y
+   .overlay arranca transparente; JS (Drawer.jsx) agrega *Visible un frame después de
+   montar para que el navegador sí anime la transición, y retrasa el desmontaje al
+   cerrar hasta que termina (ver CLOSE_ANIMATION_MS, debe coincidir con la duración
+   de acá). prefers-reduced-motion se maneja de forma global (ver styles/global.css). */
 .overlay {
   position: fixed;
   inset: 0;
@@ -11,6 +18,12 @@
   display: flex;
   justify-content: flex-end;
   z-index: 1000;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.overlayVisible {
+  opacity: 1;
 }
 
 .panel {
@@ -23,16 +36,24 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  transition: transform 220ms ease;
+  will-change: transform;
 }
 
 .right {
   margin-left: auto;
+  transform: translateX(100%);
 }
 
 .left {
   margin-right: auto;
   border-radius: 0 var(--drawer-radius, var(--radius-xl)) var(--drawer-radius, var(--radius-xl)) 0;
   box-shadow: 4px 0 24px rgba(26, 26, 46, 0.12);
+  transform: translateX(-100%);
+}
+
+.panelVisible {
+  transform: translateX(0);
 }
 
 .header {

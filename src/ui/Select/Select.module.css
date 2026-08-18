@@ -29,6 +29,7 @@
   font-weight: var(--font-weight-body-default-bold);
   line-height: var(--line-height-body-default);
   appearance: auto;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .select:focus-visible {

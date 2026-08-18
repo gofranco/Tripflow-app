@@ -111,6 +111,19 @@
   flex-direction: column;
 }
 
+/* Entrada sutil — solo se dispara cuando la fila realmente se monta (categoría
+   nueva o cambio de viaje), no en cada re-render con el mismo dato. */
+@keyframes donutRowEnter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .legendRow {
   display: flex;
   align-items: center;
@@ -122,6 +135,7 @@
   font-size: var(--font-size-body-default);
   font-weight: var(--font-weight-body-default-bold);
   color: var(--color-text-primary);
+  animation: donutRowEnter 200ms ease both;
 }
 
 .legendRow:last-child {
@@ -168,6 +182,7 @@
   flex-direction: column;
   gap: var(--spacing-4);
   padding: var(--spacing-8) 0;
+  animation: donutRowEnter 200ms ease both;
 }
 
 .barHeader {
@@ -195,9 +210,25 @@
   overflow: hidden;
 }
 
+/* Crecimiento inicial vía transform (compositor-friendly) en vez de animar width
+   directamente; la transition de width sigue ahí para si el ancho cambia en un
+   elemento ya montado (ej. no aplica hoy, pero es coherente con la barra del
+   TripBudgetBanner, que sí representa progreso). */
+@keyframes barFillGrow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 .barFill {
   height: 100%;
   border-radius: 999px;
+  transform-origin: left;
+  transition: width 0.3s ease;
+  animation: barFillGrow 300ms ease both;
 }
 
 @media (max-width: 640px) {

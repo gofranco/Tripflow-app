@@ -6,6 +6,14 @@
   box-sizing: border-box;
 }
 
+/* Reserva el espacio de la scrollbar vertical siempre, esté o no visible. Sin
+   esto, cuando un Drawer pone document.body.style.overflow = 'hidden', la
+   scrollbar desaparece y el contenido gana su ancho de golpe — el "brinco"
+   horizontal del Dashboard al abrir/cerrar cualquier Drawer. */
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   margin: 0;
   font-family: var(--font-body);
@@ -21,4 +29,18 @@ h3,
 h4 {
   font-family: var(--font-heading);
   margin: 0;
+}
+
+/* Kill switch global de animaciones: si el usuario prefiere menos movimiento,
+   toda transition/animation del proyecto colapsa a ~instantánea en vez de que
+   cada componente tenga que declarar su propia excepción. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

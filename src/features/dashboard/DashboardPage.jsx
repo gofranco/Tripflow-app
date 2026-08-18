@@ -12,7 +12,11 @@ function DashboardPage({ activeTrip, expenses }) {
   const { spent, categories, recentExpenses } = useActiveTripSummary(activeTrip, expenses)
 
   return (
-    <div className={styles.page}>
+    // key={activeTrip.id}: al cambiar de viaje activo, React monta un nodo nuevo
+    // en vez de actualizar el existente — eso dispara el fade-in sutil de .page
+    // (ver DashboardPage.module.css) como feedback de "los datos cambiaron", sin
+    // tocar el estado de trips/expenses ni recargar nada de verdad.
+    <div key={activeTrip.id} className={styles.page}>
       <TripBudgetBanner tripName={activeTrip.name} budgetTotal={activeTrip.budgetTotal} spent={spent} />
 
       <div className={styles.grid}>

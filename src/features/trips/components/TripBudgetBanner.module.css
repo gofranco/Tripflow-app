@@ -16,6 +16,7 @@
 .accent {
   width: 18px;
   flex-shrink: 0;
+  transition: background-color 0.2s ease;
 }
 
 .success .accent {
@@ -75,6 +76,7 @@
   font-size: var(--font-size-body-default);
   font-weight: var(--font-weight-body-default-bold);
   color: var(--color-text-on-brand);
+  transition: background-color 0.2s ease;
 }
 
 .success .statusBadge {
@@ -106,7 +108,7 @@
 .fill {
   height: 100%;
   border-radius: var(--radius-lg);
-  transition: width 0.3s ease;
+  transition: width 0.3s ease, background-color 0.2s ease;
 }
 
 .success .fill {
@@ -129,6 +131,7 @@
   line-height: var(--line-height-h4);
   letter-spacing: var(--letter-spacing-h4);
   font-weight: var(--font-weight-h4);
+  transition: color 0.2s ease;
 }
 
 .success .percent {
@@ -156,6 +159,7 @@
 
 .remainingAmount {
   font-weight: var(--font-weight-h4);
+  transition: color 0.2s ease;
 }
 
 .success .remainingAmount {

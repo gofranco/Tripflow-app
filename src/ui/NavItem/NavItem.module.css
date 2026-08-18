@@ -30,6 +30,7 @@
   bottom: 0;
   width: 7px;
   background: transparent;
+  transition: background-color 0.15s ease;
 }
 
 .navItem:hover {

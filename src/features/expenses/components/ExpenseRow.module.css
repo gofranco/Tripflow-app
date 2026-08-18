@@ -2,12 +2,26 @@
    texto Label/Default para la descripción, Caption/Small para la metadata, monto
    siempre en color danger (así se muestra en Figma para todas las filas). */
 
+/* Entrada sutil — solo al montar (gasto nuevo o cambio de viaje), no en cada
+   re-render de una fila que ya existía. */
+@keyframes expenseRowEnter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .row {
   display: flex;
   align-items: center;
   gap: var(--spacing-12);
   padding: var(--spacing-12) 0;
   border-bottom: 1px solid var(--color-border-default);
+  animation: expenseRowEnter 200ms ease both;
 }
 
 .row:last-child {

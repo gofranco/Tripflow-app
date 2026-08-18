@@ -1,10 +1,25 @@
 /* Proporción de columnas (1fr / 380px) aproxima la relación 752:391 del "Content Grid"
    real en Figma; el gap de 24px sí está confirmado (--spacing-24). */
 
+/* Se dispara solo cuando .page se vuelve a montar (cambio de viaje activo, vía
+   key={activeTrip.id} en DashboardPage.jsx) — feedback sutil de "los datos
+   cambiaron" sin animación larga ni recarga visual completa. */
+@keyframes dashboardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .page {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-24);
+  animation: dashboardFadeIn 250ms ease both;
 }
 
 .grid {
