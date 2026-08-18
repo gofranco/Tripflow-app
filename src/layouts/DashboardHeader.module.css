@@ -18,9 +18,12 @@
   display: none;
 }
 
-.mobileLogo {
+.mobileLogoIcon {
   height: 32px;
-  width: auto;
+}
+
+.mobileLogoWordmark {
+  font-size: 20px;
 }
 
 .greetingRow {

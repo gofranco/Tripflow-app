@@ -1,31 +1,37 @@
-/* Réplica del "Sidebar Navigation" real: fondo oscuro (--color-text-primary reutilizado
-   como color de superficie, igual que en Figma), logo, sección "GENERAL" y profile card
-   que comparte el mismo fondo oscuro. */
+/* Brand Refresh: tanto el Sidebar Desktop (fijo) como el Sidebar Mobile (dentro del
+   Drawer, ver .drawerVariant) usan fondo claro (surface/default, #FFFFFF exacto de
+   Figma) — reemplaza el fondo oscuro anterior en ambos. La única diferencia entre
+   variantes es el borde derecho (solo Desktop, para separarse del contenido
+   adyacente; el Mobile es un overlay y no lo necesita) y el tono de "GENERAL"
+   (ver .sectionLabel), confirmados por separado contra cada mockup de Figma. */
 
 .sidebar {
   width: 314px;
   /* Sin height fijo: .shell solo define min-height (no height), así que un 100% aquí
-     no puede resolver y el fondo oscuro se queda corto. align-items: stretch (default
+     no puede resolver y el fondo se queda corto. align-items: stretch (default
      de .shell, un flex row) ya estira este hijo a la altura real del contenedor. */
   align-self: stretch;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  background: var(--color-text-primary);
-  /* Re-temiza NavItem para el fondo oscuro del sidebar. */
-  --navitem-color: var(--color-text-disabled);
-  --navitem-hover-color: var(--color-bg-default);
+  background: var(--color-surface-default);
+  border-right: 1px solid var(--color-border-default);
+  /* Re-temiza NavItem para el fondo claro del sidebar. */
+  --navitem-color: var(--color-text-secondary);
+  --navitem-hover-color: var(--color-text-primary);
   --navitem-active-color: var(--color-brand-primary);
 }
 
 /* flex:1 (no height:auto): dentro del Drawer móvil, .content ya es flex column con
    flex:1 — este flex:1 hace que el sidebar llene esa altura disponible, para que su
-   fondo oscuro llegue hasta el fondo y el profile card (empujado por .nav{flex:1})
-   quede pegado abajo, igual que en Figma. */
+   fondo llegue hasta el fondo y el profile card (empujado por .nav{flex:1})
+   quede pegado abajo, igual que en Figma. Mismo fondo claro que Desktop, sin el
+   borde derecho (el Mobile es un overlay, no un panel adyacente al contenido). */
 .drawerVariant {
   width: 100%;
   flex: 1;
   min-height: 0;
+  border-right: none;
 }
 
 .logoRow {
@@ -35,13 +41,8 @@
   padding: var(--spacing-24);
 }
 
-.logo {
-  height: 45px;
-  width: auto;
-}
-
 /* "Close" real (Body/Large regular) en vez de la X genérica del Drawer — mismo
-   patrón que CreateTripDrawer/AddExpenseDrawer, pero claro sobre el fondo oscuro. */
+   patrón que CreateTripDrawer/AddExpenseDrawer. */
 .closeButton {
   border: none;
   background: transparent;
@@ -51,7 +52,7 @@
   font-size: var(--font-size-body-large);
   font-weight: var(--font-weight-body-large);
   line-height: var(--line-height-body-large);
-  color: var(--color-bg-default);
+  color: var(--color-text-primary);
 }
 
 .closeButton:focus-visible {
@@ -75,7 +76,14 @@
   font-family: var(--font-body);
   font-size: var(--font-size-body-default);
   font-weight: var(--font-weight-body-default-bold);
-  color: var(--color-text-disabled);
+  color: var(--color-text-primary);
+}
+
+/* Mockup "Mobile / Sidebar" de Figma: "GENERAL" usa text/tertiary ahí (más tenue
+   que en Desktop, que usa text/primary) — diferencia real confirmada en Figma,
+   no un remanente del tema oscuro anterior. */
+.drawerVariant .sectionLabel {
+  color: var(--color-text-tertiary);
 }
 
 .profileWrapper {
@@ -93,6 +101,7 @@
   gap: var(--spacing-12);
   padding: var(--spacing-8) var(--spacing-12);
   border-radius: var(--radius-lg);
+  background: var(--color-surface-default);
 }
 
 .avatar {
@@ -122,7 +131,7 @@
   font-family: var(--font-body);
   font-size: var(--font-size-body-default);
   font-weight: var(--font-weight-body-default-bold);
-  color: var(--color-bg-default);
+  color: var(--color-text-primary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

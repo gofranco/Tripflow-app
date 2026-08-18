@@ -1,6 +1,5 @@
 import dashboardIcon from '../assets/dashboard/icon-dashboard.svg'
-import logo from '../assets/dashboard/logo.png'
-import { NavItem } from '../ui'
+import { Logo, NavItem } from '../ui'
 import styles from './SidebarNavigation.module.css'
 
 // Datos estáticos — la navegación real vendrá de features/ en una etapa posterior.
@@ -13,7 +12,7 @@ function SidebarNavigation({ variant = 'fixed', onNavigate, onClose }) {
   return (
     <aside className={`${styles.sidebar} ${variant === 'drawer' ? styles.drawerVariant : ''}`.trim()}>
       <div className={styles.logoRow}>
-        <img src={logo} alt="Tripflow" className={styles.logo} />
+        <Logo wordmarkClassName={styles.logoWordmark} />
         {onClose && (
           <button type="button" className={styles.closeButton} onClick={onClose}>
             Close

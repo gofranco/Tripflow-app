@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react'
 import addDarkIcon from '../assets/dashboard/icon-add-dark.svg'
 import addWhiteIcon from '../assets/dashboard/icon-add-white.svg'
 import deleteIcon from '../assets/dashboard/icon-delete.svg'
-import logo from '../assets/dashboard/logo.png'
 import AddExpenseDrawer from '../features/expenses/components/AddExpenseDrawer'
 import CreateTripDrawer from '../features/trips/components/CreateTripDrawer'
-import { Button, IconButton, Select } from '../ui'
+import { Button, IconButton, Logo, Select } from '../ui'
 import { readJSON, writeJSON } from '../utils/storage'
 import styles from './DashboardHeader.module.css'
 
@@ -48,7 +47,7 @@ function DashboardHeader({
             label="Abrir menú"
             onClick={onMenuClick}
           />
-          <img src={logo} alt="Tripflow" className={styles.mobileLogo} />
+          <Logo iconClassName={styles.mobileLogoIcon} wordmarkClassName={styles.mobileLogoWordmark} />
         </div>
       )}
 

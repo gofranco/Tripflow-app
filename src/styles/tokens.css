@@ -1,9 +1,11 @@
 :root {
-  /* Color / Brand */
-  --color-brand-primary: #ff3482;
-  --color-brand-primary-hover: #e6206e;
-  --color-brand-primary-light: #fff0f5;
-  --color-brand-primary-muted: #ffb5d2;
+  /* Color / Brand (Brand Refresh — valores reales de las Figma Variables:
+     brand/primary, brand/primary-hover, brand/primary-light, y el swatch
+     "Primary Muted" de Design Foundations > Colors > Brand) */
+  --color-brand-primary: #3b5bdb;
+  --color-brand-primary-hover: #2b4bc8;
+  --color-brand-primary-light: #edf2ff;
+  --color-brand-primary-muted: #91a7e8;
 
   /* Color / Background */
   --color-bg-default: #ffffff;
