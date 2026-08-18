@@ -1,6 +1,6 @@
 import { useId, useState } from 'react'
 import { Button, Calendar, Input, Select } from '../../../ui'
-import { expenseCategories } from '../mock/categories'
+import { categoryDefinitions } from '../mock/categories'
 import styles from './AddExpenseForm.module.css'
 
 function AddExpenseForm({ onSubmit }) {
@@ -55,7 +55,7 @@ function AddExpenseForm({ onSubmit }) {
         onChange={(event) => setCategory(event.target.value)}
       >
         <option value="">Select...</option>
-        {expenseCategories.map((item) => (
+        {categoryDefinitions.map((item) => (
           <option key={item.key} value={item.label}>
             {item.label}
           </option>

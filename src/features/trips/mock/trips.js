@@ -7,7 +7,6 @@ export const initialTrips = [
     startDate: '2026-08-07',
     endDate: '2026-08-14',
     budgetTotal: 4_000_000,
-    spent: 2_350_000,
   },
 ]
 

@@ -4,19 +4,16 @@ import { StatCard } from '../../ui'
 import { formatCOP } from '../../utils/currency'
 import DonutChartCard from '../expenses/components/DonutChartCard'
 import RecentExpensesCard from '../expenses/components/RecentExpensesCard'
-import { expenseCategories } from '../expenses/mock/categories'
-import { recentExpenses } from '../expenses/mock/recentExpenses'
 import TripBudgetBanner from '../trips/components/TripBudgetBanner'
+import { useActiveTripSummary } from './useActiveTripSummary'
 import styles from './DashboardPage.module.css'
 
-function DashboardPage({ activeTrip }) {
+function DashboardPage({ activeTrip, expenses }) {
+  const { spent, categories, recentExpenses } = useActiveTripSummary(activeTrip, expenses)
+
   return (
     <div className={styles.page}>
-      <TripBudgetBanner
-        tripName={activeTrip.name}
-        budgetTotal={activeTrip.budgetTotal}
-        spent={activeTrip.spent}
-      />
+      <TripBudgetBanner tripName={activeTrip.name} budgetTotal={activeTrip.budgetTotal} spent={spent} />
 
       <div className={styles.grid}>
         <div className={styles.leftColumn}>
@@ -29,12 +26,12 @@ function DashboardPage({ activeTrip }) {
             <StatCard
               visual={<img src={gastadoIllustration} alt="" />}
               label="Gastado"
-              value={formatCOP(activeTrip.spent)}
+              value={formatCOP(spent)}
               valueClassName={styles.gastadoValue}
             />
           </div>
 
-          <DonutChartCard categories={expenseCategories} />
+          <DonutChartCard categories={categories} />
         </div>
 
         <RecentExpensesCard expenses={recentExpenses} />

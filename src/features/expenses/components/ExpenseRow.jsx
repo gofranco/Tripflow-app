@@ -4,6 +4,7 @@ import landmarkIcon from '../../../assets/dashboard/icon-landmark.svg'
 import shoppingBagIcon from '../../../assets/dashboard/icon-shopping-bag.svg'
 import utensilsIcon from '../../../assets/dashboard/icon-utensils.svg'
 import { Badge } from '../../../ui'
+import { formatShortDate } from '../../../utils/date'
 import { formatExpenseAmount } from '../../../utils/currency'
 import styles from './ExpenseRow.module.css'
 
@@ -17,8 +18,10 @@ const CATEGORY_META = {
   Otros: { icon: shoppingBagIcon, color: 'var(--color-category-other)' },
 }
 
-function ExpenseRow({ description, category, date, amount }) {
-  const meta = CATEGORY_META[category] ?? CATEGORY_META.Otros
+function ExpenseRow({ concept, category, date, amount }) {
+  const categoryLabel = category || 'Otros'
+  const meta = CATEGORY_META[categoryLabel] ?? CATEGORY_META.Otros
+  const description = concept || categoryLabel
 
   return (
     <li className={styles.row}>
@@ -32,9 +35,9 @@ function ExpenseRow({ description, category, date, amount }) {
       <div className={styles.details}>
         <p className={styles.description}>{description}</p>
         <div className={styles.meta}>
-          <span>{date}</span>
+          <span>{formatShortDate(date)}</span>
           <span aria-hidden="true">·</span>
-          <Badge color={meta.color}>{category}</Badge>
+          <Badge color={meta.color}>{categoryLabel}</Badge>
         </div>
       </div>
       <span className={styles.amount}>{formatExpenseAmount(amount)}</span>

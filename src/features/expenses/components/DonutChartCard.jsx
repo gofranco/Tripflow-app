@@ -3,9 +3,12 @@ import styles from './DonutChartCard.module.css'
 
 // Reparte el remanente por resto-mayor para que los porcentajes mostrados sumen
 // exactamente 100 (igual que el legend en Figma), en vez de redondear cada uno
-// de forma independiente.
+// de forma independiente. Defensiva ante total/values vacíos: sin categorías no
+// hay nada que repartir (evita el remainder=100 sobre un array vacío).
 function roundPercentagesToTotal(values, total) {
-  const raw = values.map((value) => (total > 0 ? (value / total) * 100 : 0))
+  if (total <= 0 || values.length === 0) return values.map(() => 0)
+
+  const raw = values.map((value) => (value / total) * 100)
   const floors = raw.map(Math.floor)
   const remainder = 100 - floors.reduce((sum, value) => sum + value, 0)
 
@@ -22,6 +25,8 @@ function roundPercentagesToTotal(values, total) {
 
 function DonutChartCard({ categories, totalLabel = 'Gastado' }) {
   const total = categories.reduce((sum, category) => sum + category.amount, 0)
+  const isEmpty = categories.length === 0 || total <= 0
+
   const displayPercents = roundPercentagesToTotal(
     categories.map((category) => category.amount),
     total,
@@ -44,31 +49,38 @@ function DonutChartCard({ categories, totalLabel = 'Gastado' }) {
         <p className={styles.subtitle}>Por categoría · Donut Chart</p>
       </header>
 
-      <div className={styles.body}>
-        <div className={styles.donut} style={{ background: `conic-gradient(${gradient})` }}>
-          <div className={styles.center}>
-            <span className={styles.centerValue}>{formatCompactCOP(total)}</span>
-            <span className={styles.centerLabel}>{totalLabel}</span>
-          </div>
+      {isEmpty ? (
+        <div className={styles.empty}>
+          <p className={styles.emptyTitle}>Aún no hay gastos registrados</p>
+          <p className={styles.emptyText}>Registra tu primer gasto para ver la distribución.</p>
         </div>
+      ) : (
+        <div className={styles.body}>
+          <div className={styles.donut} style={{ background: `conic-gradient(${gradient})` }}>
+            <div className={styles.center}>
+              <span className={styles.centerValue}>{formatCompactCOP(total)}</span>
+              <span className={styles.centerLabel}>{totalLabel}</span>
+            </div>
+          </div>
 
-        <ul className={styles.legend}>
-          {slices.map((slice) => (
-            <li key={slice.key} className={styles.legendRow}>
-              <span className={styles.legendLeft}>
-                <span className={styles.dot} style={{ background: slice.color }} aria-hidden="true" />
-                {slice.label}
-              </span>
-              <span className={styles.legendRight}>
-                <span>{formatCompactCOP(slice.amount)}</span>
-                <span className={styles.legendPercent} style={{ color: slice.color }}>
-                  {slice.displayPercent}%
+          <ul className={styles.legend}>
+            {slices.map((slice) => (
+              <li key={slice.key} className={styles.legendRow}>
+                <span className={styles.legendLeft}>
+                  <span className={styles.dot} style={{ background: slice.color }} aria-hidden="true" />
+                  {slice.label}
                 </span>
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
+                <span className={styles.legendRight}>
+                  <span>{formatCompactCOP(slice.amount)}</span>
+                  <span className={styles.legendPercent} style={{ color: slice.color }}>
+                    {slice.displayPercent}%
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </section>
   )
 }

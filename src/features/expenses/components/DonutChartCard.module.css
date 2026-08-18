@@ -36,6 +36,33 @@
   flex-wrap: wrap;
 }
 
+/* Empty state: mismo alto aproximado que .body (donut de 260px) para que la card
+   no cambie de tamaño al pasar de/hacia el estado con datos. */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  min-height: 260px;
+  text-align: center;
+}
+
+.emptyTitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-default);
+  font-weight: var(--font-weight-body-default-bold);
+  color: var(--color-text-primary);
+}
+
+.emptyText {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-caption-default);
+  color: var(--color-text-tertiary);
+}
+
 .donut {
   position: relative;
   width: 260px;
