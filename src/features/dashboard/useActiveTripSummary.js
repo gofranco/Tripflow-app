@@ -10,9 +10,13 @@ export function useActiveTripSummary(activeTrip, expenses) {
   return useMemo(() => {
     const tripExpenses = expenses.filter((expense) => expense.tripId === activeTrip.id)
 
+    // budgetTotal inválido (0, negativo, o corrupto/no numérico) nunca debe
+    // propagar NaN/Infinity hacia abajo — se trata como "sin presupuesto".
+    const budgetTotal = Number.isFinite(activeTrip.budgetTotal) ? activeTrip.budgetTotal : 0
+
     const spent = tripExpenses.reduce((sum, expense) => sum + expense.amount, 0)
-    const available = activeTrip.budgetTotal - spent
-    const percentUsed = activeTrip.budgetTotal > 0 ? (spent / activeTrip.budgetTotal) * 100 : 0
+    const available = budgetTotal - spent
+    const percentUsed = budgetTotal > 0 ? (spent / budgetTotal) * 100 : 0
 
     const totalsByCategory = new Map()
     tripExpenses.forEach((expense) => {

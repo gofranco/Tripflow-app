@@ -20,9 +20,14 @@ function resolveBand(percentUsed) {
 }
 
 function TripBudgetBanner({ tripName, budgetTotal, spent }) {
-  const percentUsed = budgetTotal > 0 ? (spent / budgetTotal) * 100 : 0
+  // budgetTotal/spent inválidos (corrupción de datos, viaje sin presupuesto
+  // numérico) nunca deben producir NaN/Infinity visibles en el banner.
+  const safeBudgetTotal = Number.isFinite(budgetTotal) ? budgetTotal : 0
+  const safeSpent = Number.isFinite(spent) ? spent : 0
+
+  const percentUsed = safeBudgetTotal > 0 ? (safeSpent / safeBudgetTotal) * 100 : 0
   const band = resolveBand(percentUsed)
-  const remaining = budgetTotal - spent
+  const remaining = safeBudgetTotal - safeSpent
   const isOverBudget = remaining < 0
 
   return (

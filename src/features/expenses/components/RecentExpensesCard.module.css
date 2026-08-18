@@ -28,3 +28,29 @@
   display: flex;
   flex-direction: column;
 }
+
+/* Mismo patrón que el empty state de DonutChartCard. */
+.empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  text-align: center;
+}
+
+.emptyTitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-default);
+  font-weight: var(--font-weight-body-default-bold);
+  color: var(--color-text-primary);
+}
+
+.emptyText {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-caption-default);
+  color: var(--color-text-tertiary);
+}

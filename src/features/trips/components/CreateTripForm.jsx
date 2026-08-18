@@ -35,10 +35,14 @@ function CreateTripForm({ onSubmit }) {
   const trimmedDestination = destination.trim()
   const budgetValue = Number(budget)
 
+  // El Calendar en mode="range" ya impide elegir un regreso anterior al inicio,
+  // pero un draft restaurado desde sessionStorage podría llegar inconsistente
+  // (ej. de una versión anterior) — se valida igual por seguridad.
   const isValid =
     trimmedDestination.length > 0 &&
     Boolean(startDate) &&
     Boolean(endDate) &&
+    endDate >= startDate &&
     budget !== '' &&
     budgetValue > 0
 
