@@ -1,0 +1,217 @@
+/* Réplica del "Budget Alert Popup" real de Figma (nodo 155:1976, 5 estados). Los
+   colores de severidad (fondo/acento por estado) son literales — no corresponden a
+   los tokens semánticos existentes (--color-warning-default, etc.), que usan otra
+   paleta; ver BudgetAlertPopup.jsx para el porqué. Todo lo demás (spacing, radius,
+   bordes, tipografía, gris neutro de fondo del track) sí reutiliza tokens existentes. */
+
+/* Entrada/salida vía opacity + transform únicamente (nada de width/height/left, y
+   sin tocar ningún ancestro): el overlay/card arrancan en su estado "mounting"
+   (opacity 0, card desplazada+achicada); JS (BudgetAlertPopup.jsx) agrega
+   *Visible un frame después de montar para que el navegador sí anime la entrada
+   (200ms), y retrasa el desmontaje real al cerrar hasta que termina la salida vía
+   *Closing (160ms, transform de salida más sutil). prefers-reduced-motion se
+   maneja de forma global (ver styles/global.css) — colapsa ambas duraciones a
+   ~instantáneo sin necesidad de una regla aparte acá. */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-16);
+  background: rgba(26, 26, 46, 0.4);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+}
+
+.overlayVisible {
+  opacity: 1;
+}
+
+.overlayClosing {
+  transition-duration: 160ms;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-20);
+  width: 360px;
+  max-width: 100%;
+  padding: var(--spacing-24);
+  background: var(--color-surface-default);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 12px 12px rgba(26, 26, 46, 0.08);
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
+  transition:
+    opacity 200ms ease-out,
+    transform 200ms ease-out;
+}
+
+.cardVisible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.cardClosing {
+  transition-duration: 160ms;
+  opacity: 0;
+  transform: translateY(4px) scale(0.99);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.iconBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  flex-shrink: 0;
+}
+
+.iconBadge img {
+  width: 20px;
+  height: 20px;
+}
+
+.severityBadge {
+  padding: 6px var(--spacing-12);
+  border-radius: 100px;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: var(--font-weight-h4);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.textBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  width: 100%;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-h1);
+  letter-spacing: var(--letter-spacing-h3);
+  color: var(--color-text-primary);
+}
+
+.message {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-default);
+  line-height: var(--line-height-body-default);
+  color: var(--color-text-secondary);
+}
+
+.progressStats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  width: 100%;
+}
+
+.labelsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.usedLabel {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: var(--font-weight-h4);
+  color: #7e7e9a;
+}
+
+.percentValue {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-body-default);
+  font-weight: var(--font-weight-h1);
+}
+
+.track {
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  background: var(--color-bg-muted);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+.valuesRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: var(--spacing-4);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-small);
+}
+
+.spentValue {
+  color: var(--color-text-secondary);
+}
+
+.spentValue strong {
+  color: var(--color-text-primary);
+}
+
+.totalValue {
+  color: #7e7e9a;
+}
+
+.cta {
+  width: 100%;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-body-default);
+  font-weight: var(--font-weight-h4);
+  color: var(--color-text-on-brand);
+  cursor: pointer;
+  transition:
+    filter 120ms ease,
+    transform 120ms ease;
+}
+
+.cta:hover {
+  filter: brightness(0.92);
+}
+
+.cta:active {
+  transform: scale(0.98);
+}
+
+.cta:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 100%;
+  }
+}
