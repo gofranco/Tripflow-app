@@ -173,6 +173,9 @@ Repositorio: [https://github.com/gofranco/Tripflow-app](https://github.com/gofra
 
 ## Entregables
 
+- **Product Discovery:** https://app.notion.com/p/Tripflow-7635c85ebba14b959edb9edfaca3d374?source=copy_link
+- **Diseño/proceso en Figma:** [https://www.figma.com/design/cm4DNabWIvFLtem5B6wXpV/Tripflow?node-id=11-7423](https://www.figma.com/design/cm4DNabWIvFLtem5B6wXpV/Tripflow?node-id=11-7423)
 - **Aplicación publicada:** [https://tripflowdiegofranco.netlify.app](https://tripflowdiegofranco.netlify.app)
 - **Repositorio GitHub:** [https://github.com/gofranco/Tripflow-app](https://github.com/gofranco/Tripflow-app)
-- **Diseño/proceso en Figma:** [https://www.figma.com/design/cm4DNabWIvFLtem5B6wXpV/Tripflow?node-id=11-7423](https://www.figma.com/design/cm4DNabWIvFLtem5B6wXpV/Tripflow?node-id=11-7423)
+
+
