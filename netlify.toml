@@ -1,0 +1,11 @@
+# Proxy (no redirect visible al navegador) de /api/* hacia el backend en Render.
+# status = 200 con un destino externo hace que Netlify reenvíe la request
+# server-to-server y devuelva la respuesta bajo el mismo origen — el frontend
+# sigue llamando a fetch('/api/scan-receipt') sin cambios (ver scanReceipt.js).
+# En dev, esta misma ruta relativa la resuelve el proxy de Vite (vite.config.js);
+# esta regla es el equivalente para producción.
+[[redirects]]
+  from = "/api/*"
+  to = "https://tripflow-api.onrender.com/api/:splat"
+  status = 200
+  force = true
